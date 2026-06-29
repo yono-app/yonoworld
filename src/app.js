@@ -1,0 +1,69 @@
+import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import rateLimit from "express-rate-limit";
+import slowDown from "express-slow-down";
+import helmet from "helmet";
+
+import gameRoute from "./routes/routes.js";
+import errorHandler from "./middleware/error.middleware.js";
+
+const app = express();
+app.set("trust proxy", 1);
+
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://localhost:3000",
+      "http://localhost:3001",
+      "https://www.allyonoogames.com",
+      "https://yonoworld.xyz",
+      "https://www.yonoworld.xyz"
+    ],
+    credentials: true,
+    exposedHeaders: ["set-cookie"],
+  })
+);
+
+app.use(helmet());
+
+// Root route for browser or health checks
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "Welcome to the YonoWorld backend API",
+  });
+});
+
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const speedLimiter = slowDown({
+  windowMs: 60 * 1000,
+  delayAfter: 50,
+  delayMs: () => 500,
+});
+
+// Health Check
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "Server is running",
+  });
+});
+
+app.use("/api", limiter, speedLimiter, gameRoute);
+
+// ⚠️ Global error handler — MUST be registered last
+app.use(errorHandler);
+
+export default app;
