@@ -7,9 +7,9 @@ import AppCard from "../components/AppCard";
 import Link from "next/link";
 import type { Game } from "../types";
 
-const SITE_URL = "https://yonoworld.xyz";
+const SITE_URL = "https://www.yonoworld.xyz";
 const SITE_NAME = "Yono World";
-const API = process.env.NEXT_PUBLIC_API_URL;
+const API = process.env.NEXT_PUBLIC_API_URL || "https://api.yonoworld.xyz/api";
 
 async function getGameBySlug(slug: string): Promise<Game | null> {
   try {

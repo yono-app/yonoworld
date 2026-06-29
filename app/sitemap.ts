@@ -30,7 +30,7 @@ export default async function sitemap() {
       url: `${SITE_URL}/all-yono-games`,
       lastModified: new Date(),
       changeFrequency: "daily" as const,
-      priority: 0.9,
+      priority: 1.0,
     },
     {
       url: `${SITE_URL}/contact`,

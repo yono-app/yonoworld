@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import AppCard from "../components/AppCard";
 import type { Game } from "../types";
 
-const SITE_URL = "https://yonoworld.xyz";
+const SITE_URL = "https://www.yonoworld.xyz";
 const SITE_NAME = "Yono World";
 const API = process.env.NEXT_PUBLIC_API_URL;
 
