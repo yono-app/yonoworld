@@ -11,14 +11,25 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
-        has: [{ type: "host", value: "allyonoogames.com" }],
-        destination: "https://www.allyonoogames.com/:path*",
+        has: [{ type: "host", value: "yonoworld.xyz" }],
+        destination: "https://www.yonoworld.xyz/:path*",
         permanent: true, // 301
       },
     ];
   },
 
-  allowedDevOrigins: ["www.allyonoogames.com", "allyonoogames.com"],
+  // Tells Next.js to mask /sitemap_index.xml and serve the app's auto-generated sitemap instead
+  async rewrites() {
+    return [
+      {
+        source: "/sitemap_index.xml",
+        destination: "/sitemap.xml",
+      },
+    ];
+  },
+
+  
+  allowedDevOrigins: ["www.yonoworld.xyz", "yonoworld.xyz"],
   images: {
     remotePatterns: [
       {

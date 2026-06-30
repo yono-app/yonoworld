@@ -8,7 +8,7 @@ import type { Game } from "../types";
 
 const SITE_URL = "https://www.yonoworld.xyz";
 const SITE_NAME = "Yono World";
-const API = process.env.NEXT_PUBLIC_API_URL;
+const API = process.env.NEXT_PUBLIC_API_URL || "https://api.yonoworld.xyz/api";
 
 export const metadata: Metadata = {
   title: `All Yono Games List 2026  | ${SITE_NAME}`,
