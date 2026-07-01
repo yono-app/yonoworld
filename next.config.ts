@@ -28,7 +28,33 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  
+  async headers() {
+    return [
+      // Public pages
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow",
+          },
+        ],
+      },
+
+      // Don't index API routes
+      {
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
+          },
+        ],
+      },
+    ];
+  },
+
+
   allowedDevOrigins: ["www.yonoworld.xyz", "yonoworld.xyz"],
   images: {
     remotePatterns: [

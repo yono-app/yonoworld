@@ -60,7 +60,7 @@ export async function generateMetadata({
     .trim()
     .slice(0, 120);
 
-  const title = `${game.name} APK Download – ₹${game.signupBonus} Bonus | ${SITE_NAME}`;
+  const title = `${game.name} APK Download – ₹${game.signupBonus} Bonus`;
 
   // Natural, unique description per game — avoids the mechanical template that
   // triggers Google's duplicate-content filter.
@@ -101,6 +101,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary",
+      site: `${SITE_URL}/${game.slug}`,
       title,
       description,
       images: game.logoUrl ? [game.logoUrl] : [],
