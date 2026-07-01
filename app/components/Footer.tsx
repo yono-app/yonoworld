@@ -1,7 +1,21 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
   const year = new Date().getFullYear();
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy link: ", err);
+    }
+  };
 
   return (
     <footer className="bg-slate-950 text-slate-400 mt-auto border-t border-slate-900 font-sans antialiased">
@@ -27,7 +41,7 @@ export default function Footer() {
             <span>⚠️</span> Important Notice All Yono Game
           </h3>
           <p className="text-slate-300 text-xs leading-relaxed">
-            <strong>allyonoogames.com</strong> does <strong>not</strong> run or control the apps listed here. The{" "}
+            <strong>yonoworld.xyz</strong> does <strong>not</strong> run or control the apps listed here. The{" "}
             <strong>rummy app</strong> can be addictive and financially risky, so please play responsibly. Only for{" "}
             <strong className="text-amber-400">18+ players</strong>.
           </p>
@@ -50,7 +64,7 @@ export default function Footer() {
           <div className="space-y-1">
             <h4 className="text-white font-extrabold tracking-tight text-sm">Yono Rummy Apk :-</h4>
             <p className="text-slate-400 leading-relaxed">
-              <a href="https://allyonoogames.com/yono-rummy/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+              <a href="https://yonoworld.xyz/yono-rummy/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                 Yonorummy
               </a>{" "}
               is India's top rummy platform. Download and get a daily bonus of ₹68. Offer valid for a limited time for all users.
@@ -61,7 +75,7 @@ export default function Footer() {
           <div className="space-y-1">
             <h4 className="text-white font-extrabold tracking-tight text-sm">Yono VIP Apk :-</h4>
             <p className="text-slate-400 leading-relaxed">
-              <a href="https://allyonoogames.com/yono-vip/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+              <a href="https://yonoworld.xyz/yono-vip/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                 Yonovip
               </a>{" "}
               features high-stakes action. Play slots, poker, and rummy with 24/7 withdrawals. Best-in-class gaming experience.
@@ -72,7 +86,7 @@ export default function Footer() {
           <div className="space-y-1">
             <h4 className="text-white font-extrabold tracking-tight text-sm">Yono Games :-</h4>
             <p className="text-slate-400 leading-relaxed">
-              <a href="https://allyonoogames.com/yono-games/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+              <a href="https://yonoworld.xyz/yono-games/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
                 Yonogames
               </a>{" "}
               provides smooth slots and casino machines. Instant withdrawal and high-speed gameplay. Signup today and claim ₹89 free bonus.
@@ -101,9 +115,15 @@ export default function Footer() {
             <span className="text-base">🔗</span>
             <span>Spread the word! Share this list with friends.</span>
           </div>
-          <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-lg shadow-indigo-600/10 active:scale-95 transition-all duration-150 cursor-pointer">
-            <span>📤</span>
-            <span>Copy Share Link</span>
+          <button
+            onClick={handleCopy}
+            className={`w-full sm:w-auto flex items-center justify-center gap-2 text-white text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-lg active:scale-95 transition-all duration-150 cursor-pointer ${copied
+                ? "bg-gradient-to-r from-emerald-600 to-teal-600 shadow-emerald-600/10"
+                : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-indigo-600/10"
+              }`}
+          >
+            <span>{copied ? "✅" : "📤"}</span>
+            <span>{copied ? "Copied!" : "Copy Share Link"}</span>
           </button>
         </div>
 

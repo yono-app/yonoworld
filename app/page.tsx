@@ -10,9 +10,9 @@ const allKeywords = [
 ].join(", ");
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} – Download Yono`,
+  title: `${SITE_NAME} – Download Yono APP`,
   description:
-    "Discover 50+ Yono apps — compare signup bonuses, min withdrawal limits & user ratings. Find the best Yono , Slots & casino apps, updated daily.",
+    "Discover 70+ Yono apps — compare signup bonuses, min withdrawal limits & user ratings. Find the best Yono , Slots & casino apps, updated daily.",
   keywords: allKeywords,
   alternates: { canonical: SITE_URL },
   openGraph: {
