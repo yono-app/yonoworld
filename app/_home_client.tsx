@@ -109,11 +109,10 @@ export default function HomeClient({ showFixedCard = false, filterByTag }: HomeC
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 ${
-                    isActive
+                  className={`flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 ${isActive
                       ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-300/30"
-                  }`}
+                    }`}
                 >
                   <span>{tab}</span>
                   {tab === "New Apps" && newGamesCount > 0 && (
@@ -186,13 +185,13 @@ export default function HomeClient({ showFixedCard = false, filterByTag }: HomeC
             {/* List area */}
             {filteredGames.length > 0 ? (
               <div className="flex flex-col gap-4">
-                
+
                 {/* Stunning Spotlight / Editor's Choice Fixed Card */}
                 {showFixedCard && (
                   <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-5 border border-slate-800/80 shadow-2xl group transition-all duration-300 hover:shadow-indigo-500/10">
                     {/* Decorative beam */}
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.25),transparent_60%)] pointer-events-none" />
-                    
+
                     {/* Big stylized background rank */}
                     <div className="absolute right-4 bottom-[-10px] text-indigo-900/15 font-black text-8xl select-none pointer-events-none leading-none">
                       01
