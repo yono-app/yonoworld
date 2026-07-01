@@ -29,7 +29,7 @@ export default function HomeClient({ showFixedCard = false, filterByTag }: HomeC
     if (games.length === 0) {
       dispatch(fetchAllGames());
     }
-  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const newGamesCount = games.filter((g) => g.isNewGame).length;
 
@@ -57,316 +57,234 @@ export default function HomeClient({ showFixedCard = false, filterByTag }: HomeC
   }, [activeTab, searchQuery, games]);
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{
-        background: "#F5F5F7",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif",
-        WebkitFontSmoothing: "antialiased",
-      }}
-    >
-      <style>{`
-        .hc-search {
-          background: #fff;
-          border: 1px solid #D2D2D7;
-          border-radius: 12px;
-          color: #1D1D1F;
-          font-size: 15px;
-          padding: 10px 14px 10px 38px;
-          width: 100%;
-          outline: none;
-          transition: border-color 0.15s, box-shadow 0.15s;
-        }
-        .hc-search::placeholder { color: #AEAEB2; }
-        .hc-search:focus {
-          border-color: #0071E3;
-          box-shadow: 0 0 0 3px rgba(0,113,227,0.12);
-        }
-        .hc-tab-wrap {
-          display: inline-flex;
-          gap: 2px;
-          background: #E5E5EA;
-          border-radius: 10px;
-          padding: 3px;
-        }
-        .hc-tab {
-          padding: 6px 18px;
-          border-radius: 8px;
-          font-size: 13px;
-          font-weight: 500;
-          border: none;
-          cursor: pointer;
-          transition: background 0.15s, color 0.15s;
-          background: transparent;
-          color: #3A3A3C;
-          white-space: nowrap;
-        }
-        .hc-tab.active {
-          background: #fff;
-          color: #1D1D1F;
-          font-weight: 600;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.10);
-        }
-        .hc-badge {
-          display: inline-block;
-          background: #34C759;
-          color: #fff;
-          font-size: 10px;
-          font-weight: 700;
-          line-height: 1;
-          padding: 2px 5px;
-          border-radius: 20px;
-          margin-left: 5px;
-          vertical-align: middle;
-        }
-        .hc-list {
-          background: #fff;
-          border-radius: 16px;
-          overflow: hidden;
-          border: 1px solid #E5E5EA;
-        }
-        .hc-list > * + * {
-          border-top: 1px solid #F2F2F7;
-        }
-        .hc-featured {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          padding: 14px 16px;
-          background: #fff;
-          transition: background 0.12s;
-        }
-        .hc-featured:hover { background: #F9F9FB; }
-        .hc-rank {
-          position: absolute;
-          top: -5px;
-          left: -5px;
-          background: #FF3B30;
-          color: #fff;
-          font-size: 9px;
-          font-weight: 800;
-          width: 17px;
-          height: 17px;
-          border-radius: 5px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 10;
-          letter-spacing: -0.3px;
-        }
-        .hc-logo {
-          width: 56px;
-          height: 56px;
-          border-radius: 13px;
-          overflow: hidden;
-          flex-shrink: 0;
-          position: relative;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.12);
-        }
-        .hc-app-name {
-          font-size: 15px;
-          font-weight: 600;
-          color: #1D1D1F;
-          line-height: 1.25;
-        }
-        .hc-meta {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-          margin-top: 4px;
-        }
-        .hc-meta-row {
-          font-size: 11px;
-          font-weight: 500;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-        }
-        .hc-btn {
-          flex-shrink: 0;
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          background: #0071E3;
-          color: #fff;
-          font-size: 12px;
-          font-weight: 600;
-          padding: 7px 14px;
-          border-radius: 20px;
-          text-decoration: none;
-          letter-spacing: -0.1px;
-          transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
-          white-space: nowrap;
-        }
-        .hc-btn:hover {
-          background: #0077ED;
-          box-shadow: 0 4px 12px rgba(0,113,227,0.30);
-          transform: scale(1.03);
-        }
-        .hc-btn:active { transform: scale(0.97); }
-        .hc-spinner {
-          width: 28px;
-          height: 28px;
-          border: 3px solid #E5E5EA;
-          border-top-color: #0071E3;
-          border-radius: 50%;
-          animation: hc-spin 0.7s linear infinite;
-        }
-        @keyframes hc-spin { to { transform: rotate(360deg); } }
-        .hc-empty-title { font-size: 17px; font-weight: 600; color: #1D1D1F; }
-        .hc-empty-sub { font-size: 14px; color: #6E6E73; margin-top: 4px; }
-        .hc-clear-btn {
-          margin-top: 14px;
-          font-size: 14px;
-          color: #0071E3;
-          font-weight: 500;
-          background: none;
-          border: none;
-          cursor: pointer;
-        }
-        .hc-count {
-          font-size: 12px;
-          color: #6E6E73;
-          font-weight: 400;
-        }
-        .hc-count-accent { color: #0071E3; }
-        .hc-section-label {
-          font-size: 12px;
-          font-weight: 500;
-          color: #AEAEB2;
-          letter-spacing: 0.3px;
-          text-transform: uppercase;
-        }
-      `}</style>
+    <div className="min-h-screen flex flex-col bg-slate-50/50 relative overflow-hidden font-sans antialiased">
+      {/* Background Glow Blobs for premium depth */}
+      <div className="absolute top-[-10%] left-[-15%] w-[60%] h-[40%] rounded-full bg-gradient-to-br from-indigo-200/30 to-blue-200/30 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-15%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-purple-200/25 to-rose-200/25 blur-3xl pointer-events-none" />
 
       <Navbar />
       <Banner />
 
-      <main style={{ flex: 1, maxWidth: 600, margin: "0 auto", width: "100%", padding: "20px 16px 40px" }}>
-
-        {/* Search */}
-        <div style={{ position: "relative", marginBottom: 16 }}>
-          <svg
-            style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
-            width="15" height="15" fill="none" stroke="#AEAEB2" strokeWidth="2" viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+      <main className="flex-1 w-full max-w-[620px] mx-auto px-4 py-8 relative z-10">
+        {/* Modern Search Bar Container */}
+        <div className="relative mb-6 group">
+          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+            <svg
+              className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
           <input
             type="text"
-            placeholder="Search apps…"
+            placeholder="Search apps..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="hc-search"
+            className="w-full pl-12 pr-10 py-3.5 bg-white border border-slate-200 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 shadow-sm shadow-slate-100 hover:border-slate-300"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "#AEAEB2", border: "none", borderRadius: "50%", width: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: 0 }}
+              className="absolute inset-y-0 right-4 flex items-center"
             >
-              <svg width="9" height="9" fill="none" stroke="#fff" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <div className="bg-slate-200 hover:bg-slate-300 text-slate-500 hover:text-slate-700 p-1 rounded-full transition-colors duration-150">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
             </button>
           )}
         </div>
 
-        {/* Tabs */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
-          <div className="hc-tab-wrap">
-            {CATEGORIES.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`hc-tab${activeTab === tab ? " active" : ""}`}
-              >
-                {tab}
-                {tab === "New Apps" && newGamesCount > 0 && (
-                  <span className="hc-badge">{newGamesCount}</span>
-                )}
-              </button>
-            ))}
+        {/* Tab switcher */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex gap-1.5 bg-slate-200/50 backdrop-blur-sm p-1.5 rounded-2xl border border-slate-300/30 shadow-inner">
+            {CATEGORIES.map((tab) => {
+              const isActive = activeTab === tab;
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 ${
+                    isActive
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-300/30"
+                  }`}
+                >
+                  <span>{tab}</span>
+                  {tab === "New Apps" && newGamesCount > 0 && (
+                    <span className="flex h-5 min-w-5 px-1 items-center justify-center rounded-full bg-rose-500 text-[10px] font-black text-white animate-pulse">
+                      {newGamesCount}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Loading */}
+        {/* Loading Spinner */}
         {loading && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "80px 0", gap: 14 }}>
-            <div className="hc-spinner" />
-            <p style={{ fontSize: 13, color: "#AEAEB2" }}>Loading apps…</p>
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
+            <div className="relative w-12 h-12">
+              <div className="absolute inset-0 rounded-full border-4 border-slate-200"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-t-blue-600 border-r-indigo-500 animate-spin"></div>
+            </div>
+            <p className="text-sm font-medium text-slate-500">Loading Yono apps...</p>
           </div>
         )}
 
-        {/* Error */}
+        {/* Error State */}
         {!loading && error && (
-          <div style={{ textAlign: "center", padding: "80px 0" }}>
-            <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
-            <p className="hc-empty-title">{error}</p>
-            <button onClick={() => window.location.reload()} className="hc-clear-btn">Retry</button>
+          <div className="text-center py-16 px-6 bg-rose-50/50 border border-rose-100 rounded-3xl backdrop-blur-sm">
+            <div className="text-4xl mb-4">⚠️</div>
+            <h3 className="text-lg font-bold text-slate-800">{error}</h3>
+            <p className="text-sm text-slate-500 mt-1 mb-6">Something went wrong while retrieving games.</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-2.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-semibold rounded-xl text-sm shadow-md shadow-rose-500/20 active:scale-95 transition-all duration-150"
+            >
+              Retry Connection
+            </button>
           </div>
         )}
 
-        {/* Content */}
+        {/* Content list */}
         {!loading && !error && (
           <>
-            {/* Count row */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, padding: "0 2px" }}>
-              <p className="hc-count">
-                {filteredGames.length === 0
-                  ? "No apps"
-                  : `${filteredGames.length} app${filteredGames.length !== 1 ? "s" : ""}`}
+            {/* Stats row & active filter indicators */}
+            <div className="flex items-center justify-between mb-4 px-1.5">
+              <div className="text-xs font-semibold text-slate-500 flex items-center gap-1.5">
+                <span>
+                  {filteredGames.length === 0 ? (
+                    "No apps matching"
+                  ) : (
+                    <>
+                      Showing <span className="text-blue-600 font-bold">{filteredGames.length}</span> premium app{filteredGames.length !== 1 && "s"}
+                    </>
+                  )}
+                </span>
                 {searchQuery && (
-                  <span className="hc-count-accent"> for &quot;{searchQuery}&quot;</span>
+                  <span className="text-indigo-600 font-bold italic">
+                    for &quot;{searchQuery}&quot;
+                  </span>
                 )}
-              </p>
-              <span className="hc-section-label">{activeTab}</span>
+              </div>
+              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-100/60 px-3 py-1 rounded-full">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Verified &amp; Safe</span>
+              </div>
             </div>
 
+            {/* List area */}
             {filteredGames.length > 0 ? (
-              <div className="hc-list">
-                {/* Featured fixed card */}
+              <div className="flex flex-col gap-4">
+                
+                {/* Stunning Spotlight / Editor's Choice Fixed Card */}
                 {showFixedCard && (
-                  <div className="hc-featured">
-                    <div className="hc-logo">
-                      <div className="hc-rank">1</div>
-                      <Image src="/logo.jpeg" alt="All Yono Games" width={56} height={56} style={{ width: "100%", height: "100%", objectFit: "cover" }} unoptimized />
+                  <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-5 border border-slate-800/80 shadow-2xl group transition-all duration-300 hover:shadow-indigo-500/10">
+                    {/* Decorative beam */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.25),transparent_60%)] pointer-events-none" />
+                    
+                    {/* Big stylized background rank */}
+                    <div className="absolute right-4 bottom-[-10px] text-indigo-900/15 font-black text-8xl select-none pointer-events-none leading-none">
+                      01
                     </div>
 
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p className="hc-app-name">All Yono Game</p>
-                      <div className="hc-meta">
-                        <span className="hc-meta-row" style={{ color: "#FF3B30" }}>
-                          <span>🎁</span> Sign Up Bonus ₹1000
-                        </span>
-                        <span className="hc-meta-row" style={{ color: "#34C759" }}>
-                          <span>🏠</span> Min. Withdrawal ₹100
-                        </span>
+                    {/* Spotlight Badge */}
+                    <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-[9px] font-black tracking-wider uppercase px-2.5 py-1 rounded-md shadow-lg shadow-amber-500/15 flex items-center gap-1">
+                      <span>👑</span>
+                      <span>EDITOR'S CHOICE</span>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      {/* Logo container */}
+                      <div className="relative shrink-0 w-16 h-16 rounded-2xl overflow-hidden shadow-lg border border-slate-800 ring-4 ring-indigo-500/10 group-hover:scale-105 transition-transform duration-300">
+                        <Image
+                          src="/logo.jpeg"
+                          alt="All Yono Games Logo"
+                          fill
+                          style={{ objectFit: "cover" }}
+                          unoptimized
+                        />
+                      </div>
+
+                      {/* Content block */}
+                      <div className="flex-1 min-w-0 pr-16">
+                        <h2 className="text-lg font-bold tracking-tight text-white group-hover:text-indigo-200 transition-colors duration-200">
+                          All Yono Game
+                        </h2>
+                        <p className="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-1">
+                          The official premium bundle app for all classic games.
+                        </p>
+
+                        {/* Offers pills */}
+                        <div className="flex flex-wrap gap-2 mt-3">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-rose-500/15 text-rose-300 border border-rose-500/25">
+                            <span>🎁</span> Sign Up Bonus ₹1000
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                            <span>🏠</span> Min. Withdrawal ₹100
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    <Link href="/all-yono-games" className="hc-btn">
-                      <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                      </svg>
-                      Download
-                    </Link>
+                    {/* Action Row */}
+                    <div className="flex justify-between items-center mt-5 pt-4 border-t border-slate-800/80">
+                      <span className="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <span>⭐</span> 4.9 Rating &bull; Free Download
+                      </span>
+                      <Link
+                        href="/all-yono-games"
+                        className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-lg shadow-indigo-500/20 hover:scale-[1.03] transition-all active:scale-[0.97] flex items-center gap-2"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        <span>GET DOWNLOAD</span>
+                      </Link>
+                    </div>
                   </div>
                 )}
 
-                {filteredGames.map((game, idx) => (
-                  <AppCard key={game._id} game={game} index={showFixedCard ? idx + 2 : idx + 1} />
-                ))}
+                {/* Main Cards list block wrapper */}
+                <div className="bg-white/70 backdrop-blur-md rounded-3xl border border-slate-200/50 shadow-xl shadow-slate-100/40 overflow-hidden divide-y divide-slate-100">
+                  {filteredGames.map((game, idx) => (
+                    <AppCard
+                      key={game._id}
+                      game={game}
+                      index={showFixedCard ? idx + 2 : idx + 1}
+                    />
+                  ))}
+                </div>
+
               </div>
             ) : (
-              <div style={{ textAlign: "center", padding: "80px 0" }}>
-                <div style={{ fontSize: 40, marginBottom: 12 }}>🔍</div>
-                <p className="hc-empty-title">No apps found</p>
-                <p className="hc-empty-sub">Try a different search or browse other categories.</p>
+              /* Beautiful Empty Search State */
+              <div className="text-center py-16 px-6 bg-white/50 border border-slate-100 rounded-3xl backdrop-blur-sm shadow-sm">
+                <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-base font-bold text-slate-800">No Apps Found</h3>
+                <p className="text-sm text-slate-500 mt-1 mb-6">We couldn't find any results matching your filters or search query.</p>
                 <button
-                  onClick={() => { setSearchQuery(""); setActiveTab("All Apps"); }}
-                  className="hc-clear-btn"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setActiveTab("All Apps");
+                  }}
+                  className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl text-sm shadow-md shadow-blue-500/15 transition-all duration-150"
                 >
-                  Clear filters
+                  Clear Search &amp; Filters
                 </button>
               </div>
             )}

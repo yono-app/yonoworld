@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { Providers } from "./providers";
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
 });
 
 const SITE_NAME = "Yono World";
@@ -104,7 +104,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${outfit.variable} h-full antialiased`}>
       <head>
         {/* Do NOT place a hardcoded canonical here — Next.js injects per-page
             canonical from each page's `alternates.canonical` metadata export.

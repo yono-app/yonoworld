@@ -3,11 +3,21 @@ import Footer from "../components/Footer";
 
 export default function DisclaimerPage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-slate-50/50 relative overflow-hidden font-sans antialiased">
+      {/* Background Glow Blobs for premium depth */}
+      <div className="absolute top-[-10%] left-[-15%] w-[60%] h-[40%] rounded-full bg-gradient-to-br from-indigo-200/30 to-blue-200/30 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-15%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-purple-200/25 to-rose-200/25 blur-3xl pointer-events-none" />
+
       <Navbar />
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-12">
-        <h1 className="text-3xl font-extrabold text-slate-800 mb-2">Disclaimer</h1>
-        <p className="text-blue-600 font-medium mb-8">All Yono Games</p>
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-12 relative z-10">
+        <div className="mb-10 text-center sm:text-left">
+          <h1 className="text-4xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 bg-clip-text text-transparent">
+            Disclaimer
+          </h1>
+          <p className="text-blue-600 font-extrabold text-sm tracking-widest uppercase mt-1">
+            All Yono Games
+          </p>
+        </div>
 
         <div className="space-y-6">
 
@@ -154,8 +164,8 @@ export default function DisclaimerPage() {
               <p>
                 <strong>Notice of Regional Legal Restrictions:</strong> Users are hereby informed that certain applications (Apps) available on AllYonoGames, such as Rummy, Poker, and Fantasy Sports, may be subject to legal restrictions in certain states within India.
               </p>
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-2">
-                <p className="text-blue-800 text-sm">
+              <div className="bg-rose-500/5 border border-rose-200/50 rounded-xl p-4 mt-2">
+                <p className="text-rose-800 text-sm">
                   By using AllYonoGames, users acknowledge and agree to this general disclaimer, affirming their understanding that the Apps are managed by respective third-party entities and that all interactions with these Apps are at their own risk and responsibility.
                 </p>
               </div>
@@ -171,8 +181,8 @@ export default function DisclaimerPage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl border border-blue-100 shadow-sm p-6">
-      <h2 className="text-slate-800 font-bold text-lg mb-3 pb-2 border-b border-blue-50">{title}</h2>
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 shadow-lg shadow-slate-100/50 p-6">
+      <h2 className="text-slate-800 font-extrabold text-lg mb-3 pb-2.5 border-b border-slate-100">{title}</h2>
       <div className="text-slate-600 text-sm leading-relaxed">{children}</div>
     </div>
   );
@@ -180,8 +190,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function CategoryDisclaimer({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
-      <h2 className="text-amber-800 font-bold text-base mb-2">{title}</h2>
+    <div className="bg-amber-500/5 border border-amber-200/50 rounded-2xl p-6 shadow-sm shadow-amber-500/5">
+      <h2 className="text-amber-800 font-extrabold text-base mb-2">{title}</h2>
       <p className="text-slate-600 text-sm leading-relaxed">{children}</p>
     </div>
   );
@@ -190,9 +200,9 @@ function CategoryDisclaimer({ title, children }: { title: string; children: Reac
 function Li({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <li className="flex gap-2">
-      <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 mt-1.5" />
+      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
       <span>
-        <strong className="text-slate-700">{title}:</strong>{" "}
+        <strong className="text-slate-700 font-bold">{title}:</strong>{" "}
         {children}
       </span>
     </li>
