@@ -110,8 +110,8 @@ export default function HomeClient({ showFixedCard = false, filterByTag }: HomeC
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 ${isActive
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-300/30"
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-300/30"
                     }`}
                 >
                   <span>{tab}</span>

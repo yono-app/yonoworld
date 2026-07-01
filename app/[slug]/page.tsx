@@ -120,8 +120,7 @@ export default async function AppDetailPage({
 
   // Related: same category, exclude current game, max 6
   const relatedApps = allGames
-    .filter((g) => g._id !== game._id && g.category === game.category)
-    .slice(0, 6);
+    .filter((g) => g._id !== game._id && g.category === game.category);
 
   // If fewer than 3 related in same category, fill with other games
   const related =
@@ -454,7 +453,7 @@ export default async function AppDetailPage({
         )}
       </main>
 
-      <Footer />
+      <Footer tags={game.tags} />
     </div>
   );
 }

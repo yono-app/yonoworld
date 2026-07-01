@@ -3,7 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Footer() {
+interface FooterProps {
+  tags?: string[];
+}
+
+export default function Footer({ tags = [] }: FooterProps) {
+
+  const seoTags = tags.length ? tags.join(", ") : "";
+
   const [copied, setCopied] = useState(false);
   const year = new Date().getFullYear();
 
@@ -29,7 +36,10 @@ export default function Footer() {
       {/* SEO text */}
       <div className="border-b border-slate-900/60 py-4">
         <p className="text-slate-400 text-[11px] text-center px-6 max-w-3xl mx-auto leading-relaxed">
-          All Yono Games – Download All Yono Apps, Jaiho Game &amp; Rummy Apps Get ₹100 Bonus With Min. Redeem ₹100 in Each Yono Games. Yono 777, Jaiho 777, Spin 777, Ever 777, Yn 777, Jaiho 777, Spin 777, Hindi 777, 777 Club, Yes Spin, Share Slots, Maha Games, YoYo Slots, Rummy 51, Bet 213 Slots.
+          All Yono Games – Download All Yono Apps, Jaiho Game & Rummy Apps Get ₹100 Bonus With Min. Redeem ₹100 in Each Yono Games.
+          {" "}
+          {seoTags && `${seoTags}, `}
+          Yono 777, Jaiho 777, Spin 777, Ever 777, Yn 777, Hindi 777, 777 Club, Yes Spin, Share Slots, Maha Games, YoYo Slots, Rummy 51, Bet 213 Slots.
         </p>
       </div>
 
@@ -118,8 +128,8 @@ export default function Footer() {
           <button
             onClick={handleCopy}
             className={`w-full sm:w-auto flex items-center justify-center gap-2 text-white text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-lg active:scale-95 transition-all duration-150 cursor-pointer ${copied
-                ? "bg-gradient-to-r from-emerald-600 to-teal-600 shadow-emerald-600/10"
-                : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-indigo-600/10"
+              ? "bg-gradient-to-r from-emerald-600 to-teal-600 shadow-emerald-600/10"
+              : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-indigo-600/10"
               }`}
           >
             <span>{copied ? "✅" : "📤"}</span>
