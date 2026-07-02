@@ -76,6 +76,12 @@ const gameSlice = createSlice({
     clearSelectedGame(state) {
       state.selectedGame = null;
     },
+
+    setGames(state, action) {
+      state.games = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -100,7 +106,7 @@ const gameSlice = createSlice({
   },
 });
 
-export const { clearSelectedGame } = gameSlice.actions;
+export const { clearSelectedGame, setGames } = gameSlice.actions;
 export default gameSlice.reducer;
 // Keep legacy alias so any other imports don't break
 export const fetchGames = fetchAllGames;

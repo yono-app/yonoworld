@@ -7,31 +7,50 @@ import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
 import AppCard from "./components/AppCard";
 import Footer from "./components/Footer";
+import { setGames, type Game } from "@/store/slices/gameSlice";
+
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchAllGames } from "@/store/slices/gameSlice";
+// import { fetchAllGames } from "@/store/slices/gameSlice";
 
 const CATEGORIES = ["All Apps", "New Apps"];
 
+// type HomeClientProps = {
+//   showFixedCard?: boolean;
+//   filterByTag?: string;
+// };
 type HomeClientProps = {
+  initialGames?: Game[];
   showFixedCard?: boolean;
   filterByTag?: string;
 };
 
-export default function HomeClient({ showFixedCard = false, filterByTag }: HomeClientProps = {}) {
-  const dispatch = useAppDispatch();
-  const { games, loading, error } = useAppSelector((state) => state.game);
-
+export default function HomeClient({
+  initialGames = [],
+  showFixedCard = false,
+  filterByTag,
+}: HomeClientProps) {
   const [activeTab, setActiveTab] = useState("All Apps");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const dispatch = useAppDispatch();
+
+  const {
+    games: reduxGames = [],
+    loading,
+    error,
+  } = useAppSelector((state) => state.game);
+
+  const games = reduxGames.length > 0 ? reduxGames : (initialGames ?? []);
+
   useEffect(() => {
-    if (games.length === 0) {
-      dispatch(fetchAllGames());
+    if (reduxGames.length === 0 && games.length > 0) {
+      dispatch(setGames(games));
     }
-  }, [dispatch]);
+  }, [dispatch, reduxGames.length, games]);
 
   const newGamesCount = games.filter((g) => g.isNewGame).length;
+
 
   const filteredGames = useMemo(() => {
     let result = [...games];
