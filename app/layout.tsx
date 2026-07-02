@@ -15,41 +15,69 @@ const SITE_DESCRIPTION =
   "Discover and download 50+ top Yono earning apps — Yono Rummy, Yono 777, Jaiho Games, Slots & more. Compare signup bonuses, withdrawal limits, and ratings on All Yono Games.";
 
 const ALL_KEYWORDS = [
-  "All Yono App, All Yono Games, Yono All Games, New Yono App, New Yono Games, All Yono Apps, Yono Rummy, Yono Games, Yono Slots, New Upcoming Yono App, Yono Rummy App, All Best Yono App, Top 10 Rummy Apps, All Rummy App, All Best Rummy Apps, All Yono Appps, All Yono App, Yono All App, Yono 51 Bonus, New Yono Apps, All Yono App List 51 Bonus, All Yono, Yono All, All Yono App List 41 Bonus, Yono List, All Yono App List, Yono All Apk, Yono Apps List, Yono 51 Apk, Yono Bonus 51 Rupees Free, All Yono Games, All Yono Game, Yono All Game, Yono All Games, Yono Game List, Yono 41 Bonus, All Yono Apk, Yono All Apk, Yono Apk All, All Yono App 51 Bonus, All Yono App Link, All Yono Store, Best Yono App, All Yono App List 2024, Top Yono App, Yono App List, Yono Bonus App Download, All App Yono, All Yono Apk, All New Yono App, All Best Yono App, Dragon Vs Tiger, all yono app 2023, all yono app 2024, all rummy game 2024, all Yono game 551 bonus, all yono games 2024, all yono games 551 bonus, all yono games online, new yono app 551 bonus, new yono apps 2023, yono all apk 551 bonus, yono all app 2023, yono all app 2024, yono all app new 2024, yono all games 2023, yono all games 2024, yono slots, yono new app 2024 download, yono new app 51 bonus 2024, teen patti gold 51 bonus, new rummy app 500 bonus, rummy all app 2024, yono all app new 2024, yono all games 2024, all yono games 2024, all yono app 2024, new yono apps 2023, all yono game 2024, teen patti gold 51 bonus, all yono games online, all yono games online, new yono app 551 bonus, yono all app new 2024, yono all app 2024, yono all games 2024, all yono app 2024, all yono games 500 bonus, new yono apps 2024,all yono game 2024, new yono app 500 bonus, all yono games online, yono all app 2024, yono all app new 2024, yono all app 2023, all yono games 550 bonus, new yono app 500 bonus, all rummy app 2024, all yono game 550 bonus, yono download, new yono apps 2023, all yono app 2023, 111 yono 51 bonus, all best yono app, all yono, all yono 51 bonus, all yono app 2024, all yono app link, all yono app list 2024, all yono app list 51 bonus, all yono application, all yono game 2024, all yono game list, all yono games, all yono games 2024, best yono app, go rummy, holy rummy apk, new yono app, new yono app 2023, new rummy app 2023 500 bonus, new yono app 2023 51 bonus, new yono app 2023 list, new rummy app 2024, new yono app 2024 51 bonus download, new yono apps 2023, royally rummy, yono 100 rupees free, yono 41 bonus, yono 51, yono 51 apk, yono 51 bonus, yono all app, yono all app new 2024, yono all apps, yono all games 2023, yono all games 2024, yono apk download, rummy best, rummy best app, rummy bonus, rummy bonus 50 rupees free, rummy download, rummy earning, rummy game, rummy golds,yono list, yono list 2024,All Yono App List, All Yono Apps, All Yono Games, New Yono App Bonus ?51, Rummy 365, En 365, 101z, Spin 101, Ind Bingo, My 777, Bet 213, GoGo Rummy, Bingo 101, 789 Jackpots, Spin Gold, Spin 777, Spin Lucky, Mdm Bet, Ind Slots, Spin Crush, MBM Bet, MKM BET, Slots Winner, Spin Winner, Yono VIP, 567 Slots, Yono Arcade, Yono 777, Yono Slots, Yono Games, Yono apps, Yono app list, Best Yono apps, rummy list, rummy list 2023, rummy mars, rummy master, rummy modern apk, rummy nabob, rummy new app 2024 download, rummy new app 51 bonus 2024, rummy wealth, rummy wealth 555, rummy win, teen patti 51 bonus, top 20 yono 51 bonus, top yono, top yono app, All Rummy Application, All Rummy App, Rummy All App, Rummy 51 Bonus, New Rummy Apps, All Rummy App List 51 Bonus, All Rummy, Rummy All, All Rummy App List 41 Bonus, Rummy List, All Rummy App List, Rummy All Apk, Rummy Apps List, Rummy 51 Apk, Rummy Bonus 51 Rupees Free, All Rummy Games, All Rummy Game, Rummy All Game, Rummy All Games, Rummy Game List, Rummy 41 Bonus, All Rummy Apk, Rummy All Apk, Rummy Apk All, All Rummy App 51 Bonus, All Rummy App Link, All Rummy Store, Best Rummy App, All Rummy App List 2024, Top Rummy App, Rummy App List, Rummy Bonus App Download, All App Rummy, All Rummy Apk, All New Rummy App, All Best Rummy App, Dragon Vs Tiger, all rummy app 2023, all rummy app 2024, all rummy game 2024, all rummy game 500 bonus, all rummy games 2024, all rummy games 500 bonus, all rummy games online, new rummy app 151 bonus, new rummy apps 2023, rummy all apk 151 bonus,rummy all app 2024, rummy all app new 2024, rummy all games 2023, rummy all games 2024, rummy gold, rummy new app 2024 download, rummy new app 51 bonus 2024, teen patti gold 51 bonus, new rummy app 151 bonus, rummy all app 2024, rummy all app new 2024, rummy all games 2024, all rummy games 2024, all rummy app 2024, new rummy apps 2023, all rummy game 2024, teen patti gold 51 bonus, all rummy games online, all rummy games online, new rummy app 500 bonus, rummy all app new 2024, rummy all app 2024, rummy all games 2024, all rummy app 2024, all rummy games 551 bonus, new rummy apps 2023,all rummy game 2024, new rummy app 500 bonus, all rummy games online, rummy all app 2024, rummy all app new 2024, rummy all app 2023, all rummy games 500 bonus, new rummy app 151 bonus, all rummy app 2024, all rummy game 500 bonus, rummy download, new rummy apps 2023, all rummy app 2023, 111 rummy 51 bonus, all best rummy app, all rummy, all rummy 51 bonus, all rummy app 2024, all rummy app link, all rummy app list 2024, all rummy app list 51 bonus, all rummy application, all rummy game 2024, rummy apk, new rummy app, new rummy app 2023, new rummy app 2023 500 bonus, new rummy app 2023 51 bonus, new rummy app 2024, new rummy app 2024 51 bonus download, new rummy apps 2023, royally rummy, rummy 100 rupees free, rummy 41 bonus, rummy 51, rummy 51 apk, rummy 51 bonus,rummy new app 2024 download, rummy new app 51 bonus 2024, rummy wealth, rummy wealth 555, rummy win, teen patti 51 bonus, top 20 rummy 51 bonus, top rummy, top rummy app"
+  "All Yono App, All Yono Games, Yono All Games, New Yono App, New Yono Games, All Yono Apps, Yono Rummy, Yono Games, Yono Slots, New Upcoming Yono App, Yono Rummy App, All Best Yono App"
 ].join(", ");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+
   title: {
     default: `${SITE_NAME} – Download All Yono Rummy, Slots & Earning Apps`,
     template: `%s | ${SITE_NAME}`,
   },
+
+
   description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
   keywords: ALL_KEYWORDS,
-  authors: [{ name: SITE_NAME, url: SITE_URL }],
+
+  authors: [
+    {
+      name: SITE_NAME,
+      url: SITE_URL
+    }
+  ],
+
   creator: SITE_NAME,
   publisher: SITE_NAME,
+
+
+  alternates: { canonical: SITE_URL, },
+
   robots: {
     index: true,
     follow: true,
+    nocache: false,
+
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
+
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+      }
+    ]
+  },
+
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} – Download All Yono Games`,
+    title: "All Yono Apps, Rummy Games & Slots Download | Yono World",
+
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: `${SITE_URL}/og-image.png`,
+        url: `${SITE_URL}/logo.jpeg`,
         width: 1200,
         height: 630,
         alt: `${SITE_NAME} – All Yono Games Download`,
@@ -60,34 +88,72 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} – Download All Yono Games`,
     description: SITE_DESCRIPTION,
-    images: [`${SITE_URL}/og-image.png`],
-  },
-  alternates: {
-    canonical: SITE_URL,
+    images: [`${SITE_URL}/logo.jpeg`],
   },
 };
 
-// Organisation JSON-LD schema
+// ===========================
+// Organization Schema
+// ===========================
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+
+  "@id": `${SITE_URL}/#organization`,
+
   name: SITE_NAME,
+
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.jpeg`,
-  sameAs: ["https://t.me/+xiZV9WhjGl05OWU9"],
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "support@AllYonoGames.com",
-    contactType: "customer support",
+
+  description: SITE_DESCRIPTION,
+
+
+  logo: {
+    "@type": "ImageObject",
+    "@id": `${SITE_URL}/#logo`,
+
+    url: `${SITE_URL}/logo.jpeg`,
   },
+
+  email: "moreyonogames@gmail.com",
+
+  sameAs: [
+    "https://t.me/+xiZV9WhjGl05OWU9"
+  ],
 };
 
-// Website JSON-LD with sitelinks searchbox
+// ===========================
+// Website Schema
+// ===========================
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+
+
   name: SITE_NAME,
   url: SITE_URL,
+  description: SITE_DESCRIPTION,
+
+  inLanguage: "en-IN",
+
+  publisher: {
+    "@id": `${SITE_URL}/#organization`,
+  },
+
+
+  alternateName: [
+    "YonoWorld",
+    "Yono World",
+    "Yono World App Store",
+    "Yono Games",
+    "Yono Apps",
+    "YonoWorld.xyz",
+    "All Yono Games"
+  ],
+
+
   potentialAction: {
     "@type": "SearchAction",
     target: {
@@ -98,34 +164,128 @@ const websiteSchema = {
   },
 };
 
+// ===========================
+// Homepage WebPage Schema
+// ===========================
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+
+  "@type": "WebPage",
+
+  "@id": `${SITE_URL}/#webpage`,
+
+  url: SITE_URL,
+
+  name: "All Yono Apps, Rummy Games & Slots Download | Yono World",
+
+  description: SITE_DESCRIPTION,
+
+  isPartOf: {
+    "@id": `${SITE_URL}/#website`,
+  },
+
+  about: {
+    "@id": `${SITE_URL}/#organization`,
+  },
+
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+
+    url: `${SITE_URL}/og-image.png`,
+  },
+
+  inLanguage: "en-IN",
+};
+
+// ===========================
+// Homepage CollectionPage
+// ===========================
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+
+  "@type": "CollectionPage",
+
+  "@id": `${SITE_URL}/#collection`,
+
+  url: SITE_URL,
+
+  name: "All Yono Apps",
+
+  description: SITE_DESCRIPTION,
+
+  isPartOf: {
+    "@id": `${SITE_URL}/#website`,
+  },
+
+  about: {
+    "@id": `${SITE_URL}/#organization`,
+  },
+
+  inLanguage: "en-IN",
+};
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} h-full antialiased`}>
+    <html
+      lang="en-IN"
+      className={`${outfit.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Do NOT place a hardcoded canonical here — Next.js injects per-page
-            canonical from each page's `alternates.canonical` metadata export.
-            A hardcoded canonical here would override every game page to point
-            to the homepage, causing GSC "Alternate page with proper canonical"
-            errors across the entire site. */}
-        <meta name="geo.region" content="IN" />
-        <meta name="geo.placename" content="India" />
-        <meta name="language" content="English" />
+        {/* Theme color */}
+        <meta name="theme-color" content="#5b21b6" />
+
+        {/* Organization Schema */}
         <Script
-          id="org-schema"
+          id="organization-schema"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
         />
+
+        {/* Website Schema */}
         <Script
           id="website-schema"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+
+        {/* WebPage Schema */}
+        <Script
+          id="webpage-schema"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webPageSchema),
+          }}
+        />
+
+        {/* CollectionPage Schema */}
+        <Script
+          id="collection-schema"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(collectionPageSchema),
+          }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-slate-50"><Providers>{children}</Providers></body>
+
+      <body className="min-h-screen flex flex-col bg-slate-50">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
