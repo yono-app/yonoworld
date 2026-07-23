@@ -9,12 +9,12 @@ const nextConfig: NextConfig = {
   // so the redirect fires before Next.js even boots.
   async redirects() {
     return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "allyonogamesstore.com" }],
-        destination: "https://allyonogamesstore.com/:path*",
-        permanent: true, // 301
-      },
+      // {
+      //   source: "/:path*",
+      //   has: [{ type: "host", value: "allyonogamesstore.com" }],
+      //   destination: "https://allyonogamesstore.com/:path*",
+      //   permanent: true, // 301
+      // },
     ];
   },
 
