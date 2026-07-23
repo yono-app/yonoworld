@@ -4,6 +4,8 @@ export interface Game {
   slug: string;
   icon?: string;
   logoUrl?: string;
+  logoAlt?: string;
+  logoTitle?: string;
   category?: string;
   rating?: number;
   size?: string;

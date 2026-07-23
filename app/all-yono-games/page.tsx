@@ -6,39 +6,53 @@ import Footer from "../components/Footer";
 import AppCard from "../components/AppCard";
 import type { Game } from "../types";
 
-const SITE_URL = "https://www.yonoworld.xyz";
-const SITE_NAME = "Yono World";
+const SITE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://allyonogamesstore.com";
+const SITE_NAME = "Yono Game Store";
+// const API = process.env.NODE_ENV === "development"
+//   ? "http://localhost:3000"
+//   : "https://api.yonoworld.xyz/api"
+
 const API = process.env.NEXT_PUBLIC_API_URL || "https://api.yonoworld.xyz/api";
 
 const year = new Date().getFullYear();
 
 
-export const metadata: Metadata = {
-  title: `All Yono Games List ${year} | ${SITE_NAME}`,
-  description:
-    "Browse the complete list of All Yono Games — Yono , Yono 777, Jaiho Games, Slots & more. Compare bonuses, ratings. Updated daily.",
-  keywords: [
-    "all yono games list", "yono games 2026", "yono app list",
-    "yono rummy list", "yono slots list", "jaiho games list",
-    "all yono apps download", "best yono earning apps",
-  ].join(", "),
-  alternates: { canonical: `${SITE_URL}/all-yono-games` },
-  openGraph: {
-    title: `All Yono Games List ${year} | ${SITE_NAME}`,
-    description:
-      "Browse the complete list of All Yono Games — Yono , Yono 777, Jaiho Games, Slots & more. Compare bonuses, ratings. Updated daily.",
-    url: `${SITE_URL}/all-yono-games`,
-    siteName: SITE_NAME,
-    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: SITE_NAME }],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `All Yono Games List 2026 | ${SITE_NAME}`,
-    description: "Browse every Yono  app — compare bonuses, ratings.",
-    images: [`${SITE_URL}/og-image.png`],
-  },
-};
+// export const metadata: Metadata = {
+//   title: `All Yono Games List ${year} | ${SITE_NAME}`,
+//   description:
+//     "Browse the complete list of All Yono Games — Yono , Yono 777, Jaiho Games, Slots & more. Compare bonuses, ratings. Updated daily.",
+//   alternates: { canonical: `${SITE_URL}/all-yono-games` },
+
+//   robots: {
+//   index: true,
+//   follow: true,
+//   googleBot: {
+//     index: true,
+//     follow: true,
+//     "max-snippet": -1,
+//     "max-image-preview": "large",
+//     "max-video-preview": -1,
+//   },
+// },
+//   openGraph: {
+//     title: `All Yono Games List ${year} | ${SITE_NAME}`,
+//     description:
+//       "Browse the complete list of All Yono Games — Yono , Yono 777, Jaiho Games, Slots & more. Compare bonuses, ratings. Updated daily.",
+//     url: `${SITE_URL}/all-yono-games`,
+//     siteName: SITE_NAME,
+//     images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630, alt: SITE_NAME }],
+//     type: "website",
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: `All Yono Games List 2026 | ${SITE_NAME}`,
+//     description: "Browse every Yono  app — compare bonuses, ratings.",
+//     images: [`${SITE_URL}/og-image.png`],
+//   },
+// };
 
 async function getAllGames(): Promise<Game[]> {
   try {
@@ -50,13 +64,262 @@ async function getAllGames(): Promise<Game[]> {
   }
 }
 
+
+
+/* ---------------------------------------------
+   Dynamic Metadata
+----------------------------------------------*/
+
+export async function generateMetadata(): Promise<Metadata> {
+  const games = await getAllGames();
+
+  const totalGames = games.length;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+
+
+    title: `All Yono Games List ${year} (${totalGames}+ Apps)`,
+
+    description: `Welcome to the premier destination for All Yono Games. We curate a collection of ${totalGames}+ verified Yono Games, including Yono 777, Yono Slots, and Jaiho Games.`,
+
+    keywords: [
+      "all yono games",
+      "all yono games list",
+      "yono games",
+      "latest yono games",
+      "new yono games",
+      "best yono games",
+      "all yono apps",
+      "yono app download",
+      "yono rummy",
+      "yono slots",
+      "yono earning apps",
+      "real money games",
+      "yono 777",
+      "jaiho games",
+      "bonus yono app",
+      "withdraw yono games",
+      "online earning games",
+      "mobile earning apps",
+      "casino games",
+      "rummy games",
+      "slot games",
+    ],
+
+    authors: [
+      {
+        name: SITE_NAME,
+      },
+    ],
+
+    creator: SITE_NAME,
+
+    publisher: SITE_NAME,
+
+    category: "Gaming",
+
+    applicationName: SITE_NAME,
+
+    alternates: {
+      canonical: `${SITE_URL}/all-yono-games`,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+
+    openGraph: {
+      type: "website",
+
+      locale: "en_US",
+
+      url: `${SITE_URL}/all-yono-games`,
+
+      siteName: SITE_NAME,
+
+      title: `All Yono Games List ${year} (${totalGames}+ Apps)`,
+
+      description: `Browse ${totalGames}+ verified Yono Games with signup bonuses, minimum withdrawal limits, ratings and download links.`,
+
+      images: [
+        {
+          url: `${SITE_URL}/logo.jpeg`,
+          width: 1200,
+          height: 630,
+          alt: "All Yono Games List",
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+
+      title: `All Yono Games List ${year}`,
+      site: SITE_URL,
+
+      description:
+        "Discover the latest Yono Games with signup bonuses, ratings and download links.",
+
+      images: [`${SITE_URL}/logo.jpeg`],
+    },
+
+    verification: {
+      google: "YOUR_GOOGLE_VERIFICATION_CODE",
+    },
+  };
+}
+
+
+
 export default async function YonoGamesPage() {
   const allGames = await getAllGames();
 
   const related = allGames.filter((g) => {
     const lowerTag = "yono";
+
     return g.name.toLowerCase().includes(lowerTag) || (g.tags || []).some((t) => t.toLowerCase() === lowerTag);
   });
+
+  const totalGames = related.length;
+
+  const totalBonus =
+    related.reduce((acc, game) => {
+      const bonus = Number(game.signupBonus || 0);
+
+      return acc + bonus;
+    }, 0) || 0;
+
+
+  /* ---------------------------------------------
+  Structured Data
+----------------------------------------------*/
+
+  const webpageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `All Yono Games List ${year}`,
+    url: `${SITE_URL}/all-yono-games`,
+    description:
+      "Browse every verified Yono Game with signup bonus, withdrawal limit, ratings and download links.",
+    inLanguage: "en",
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "BreadcrumbList",
+
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "All Yono Games",
+        item: `${SITE_URL}/all-yono-games`,
+      },
+    ],
+  };
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "CollectionPage",
+
+    name: "All Yono Games",
+
+    url: `${SITE_URL}/all-yono-games`,
+
+    description:
+      "Complete collection of Yono Games including slots, rummy and casino games.",
+
+    numberOfItems: totalGames,
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "ItemList",
+
+    name: "All Yono Games",
+
+    numberOfItems: totalGames,
+
+    itemListElement: related.map((game, index) => ({
+      "@type": "ListItem",
+
+      position: index + 1,
+
+      url: `${SITE_URL}/${game.slug}`,
+
+      name: game.name,
+    })),
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+
+    "@type": "FAQPage",
+
+    mainEntity: [
+      {
+        "@type": "Question",
+
+        name: "What are Yono Games?",
+
+        acceptedAnswer: {
+          "@type": "Answer",
+
+          text: "Yono Games are online gaming applications that offer rummy, slots, casino and other real-money gaming experiences.",
+        },
+      },
+
+      {
+        "@type": "Question",
+
+        name: "How often is this list updated?",
+
+        acceptedAnswer: {
+          "@type": "Answer",
+
+          text: "This page is updated regularly with newly released Yono Games and bonus offers.",
+        },
+      },
+
+      {
+        "@type": "Question",
+
+        name: "Can I compare signup bonuses?",
+
+        acceptedAnswer: {
+          "@type": "Answer",
+
+          text: "Yes. Every listed app includes signup bonus, minimum withdrawal, ratings and download information.",
+        },
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50/50 relative overflow-hidden font-sans antialiased">
@@ -110,7 +373,7 @@ export default async function YonoGamesPage() {
           </div>
 
           <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-col gap-3">
-            <a
+            {/* <a
               href="https://t.me/+xiZV9WhjGl05OWU9"
               target="_blank"
               rel="noopener noreferrer"
@@ -120,7 +383,7 @@ export default async function YonoGamesPage() {
                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12.002 12.002 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
               </svg>
               <span>JOIN OUR TELEGRAM CHANNEL</span>
-            </a>
+            </a> */}
           </div>
         </div>
 

@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-const TELEGRAM_LINK = "https://t.me/+xiZV9WhjGl05OWU9";
-const SITE_URL = "yonoworld.xyz";
-const SITE_NAME = "Yono World";
+const TELEGRAM_LINK = "";
+const SITE_URL = "allyonogamesstore.com";
+const SITE_NAME = "Yono Game Store";
 
 export default function Banner() {
   return (

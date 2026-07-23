@@ -3,20 +3,23 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { Providers } from "./providers";
-
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
 });
 
-const SITE_NAME = "Yono World";
-const SITE_URL = "https://www.yonoworld.xyz";
+const SITE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://allyonogamesstore.com";
+const SITE_NAME = "Yono Game Store";
+const API = process.env.NODE_ENV === "development"
+  ? "http://localhost:3000"
+  : "https://api.yonoworld.xyz/api"
+
+
 const SITE_DESCRIPTION =
   "Discover and download 50+ top Yono earning apps — Yono Rummy, Yono 777, Jaiho Games, Slots & more. Compare signup bonuses, withdrawal limits, and ratings on All Yono Games.";
-
-const ALL_KEYWORDS = [
-  "All Yono App, All Yono Games, Yono All Games, New Yono App, New Yono Games, All Yono Apps, Yono Rummy, Yono Games, Yono Slots, New Upcoming Yono App, Yono Rummy App, All Best Yono App"
-].join(", ");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -26,23 +29,20 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
 
-
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
-  keywords: ALL_KEYWORDS,
 
   authors: [
     {
       name: SITE_NAME,
-      url: SITE_URL
-    }
+      url: SITE_URL,
+    },
   ],
 
   creator: SITE_NAME,
   publisher: SITE_NAME,
 
-
-  alternates: { canonical: SITE_URL, },
+  alternates: { canonical: SITE_URL },
 
   robots: {
     index: true,
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
     icon: [
       {
         url: "/favicon.ico",
-      }
-    ]
+      },
+    ],
   },
 
   openGraph: {
@@ -108,7 +108,6 @@ const organizationSchema = {
 
   description: SITE_DESCRIPTION,
 
-
   logo: {
     "@type": "ImageObject",
     "@id": `${SITE_URL}/#logo`,
@@ -118,9 +117,7 @@ const organizationSchema = {
 
   email: "moreyonogames@gmail.com",
 
-  sameAs: [
-    "https://t.me/+xiZV9WhjGl05OWU9"
-  ],
+  sameAs: ["https://t.me/+xiZV9WhjGl05OWU9"],
 };
 
 // ===========================
@@ -130,7 +127,6 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
-
 
   name: SITE_NAME,
   url: SITE_URL,
@@ -142,7 +138,6 @@ const websiteSchema = {
     "@id": `${SITE_URL}/#organization`,
   },
 
-
   alternateName: [
     "YonoWorld",
     "Yono World",
@@ -150,9 +145,8 @@ const websiteSchema = {
     "Yono Games",
     "Yono Apps",
     "YonoWorld.xyz",
-    "All Yono Games"
+    "All Yono Games",
   ],
-
 
   potentialAction: {
     "@type": "SearchAction",
@@ -225,7 +219,6 @@ const collectionPageSchema = {
 
   inLanguage: "en-IN",
 };
-
 
 export default function RootLayout({
   children,

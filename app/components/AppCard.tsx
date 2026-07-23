@@ -23,7 +23,8 @@ export default function AppCard({ game, index }: AppCardProps) {
           {game.logoUrl ? (
             <Image
               src={game.logoUrl}
-              alt={`${game.name} logo`}
+              alt={game.logoAlt || `${game.name} logo`}
+              title={game.logoTitle || game.name}
               width={64}
               height={64}
               className="w-full h-full object-cover"

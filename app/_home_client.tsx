@@ -11,6 +11,11 @@ import { setGames, type Game } from "@/store/slices/gameSlice";
 
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import Marquee from "./components/Marquee";
+import YonoOverview from "./components/YonoOverview";
+import TelegramCTA from "./components/TelegramCTA";
+import SeoContent from "./components/SeoContent";
+import FAQ from "./components/FAQ";
 // import { fetchAllGames } from "@/store/slices/gameSlice";
 
 const CATEGORIES = ["All Apps", "New Apps"];
@@ -83,6 +88,7 @@ export default function HomeClient({
 
       <Navbar />
       <Banner />
+      <Marquee />
 
       <main className="flex-1 w-full max-w-[620px] mx-auto px-4 py-8 relative z-10">
         {/* Modern Search Bar Container */}
@@ -260,7 +266,7 @@ export default function HomeClient({
                       <span className="text-[11px] text-slate-400 font-medium flex items-center gap-1">
                         <span>⭐</span> 4.9 Rating &bull; Free Download
                       </span>
-                      <Link
+                      {/* <Link
                         href="/all-yono-games"
                         className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-lg shadow-indigo-500/20 hover:scale-[1.03] transition-all active:scale-[0.97] flex items-center gap-2"
                       >
@@ -268,7 +274,7 @@ export default function HomeClient({
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                         <span>GET DOWNLOAD</span>
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 )}
@@ -309,6 +315,11 @@ export default function HomeClient({
           </>
         )}
       </main>
+
+      <YonoOverview />
+      <TelegramCTA />
+      <SeoContent />
+      <FAQ />
 
       <Footer />
     </div>

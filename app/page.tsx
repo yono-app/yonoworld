@@ -7,19 +7,18 @@ import Script from "next/script";
 import type { Game } from "@/store/slices/gameSlice";
 
 
-const SITE_URL = "https://www.yonoworld.xyz";
-const SITE_NAME = "Yono World";
-
-const allKeywords = [
-  "All Yono App, All Yono Games, Yono All Games, New Yono App, New Yono Games, All Yono Apps, Yono Rummy, Yono Games, Yono Slots, New Upcoming Yono App, Yono Rummy App, All Best Yono App"
-].join(", ");
+const SITE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://allyonogamesstore.com";
+const SITE_NAME = "Yono Game Store";
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} – All Yono Games Download Link | Yono Games `,
   description:
     "Discover 70+ Yono apps — compare signup bonuses, min withdrawal limits & user ratings. Find the best Yono , Slots & casino apps, updated daily.",
-  keywords: allKeywords,
   alternates: { canonical: SITE_URL },
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     url: SITE_URL,
