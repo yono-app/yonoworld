@@ -1,33 +1,58 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { TELEGRAM_URL } from "@/config/site";
 
 export default function ContactPage() {
     return (
-        <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1 max-w-3xl mx-auto w-full px-4 sm:px-6 py-12">
-                <h1 className="text-3xl font-extrabold text-slate-800 mb-6">Contact Us</h1>
-                <div className="bg-white rounded-2xl border border-blue-100 shadow-sm p-8">
-                    <p className="text-slate-600 leading-relaxed mb-6">
-                        Have questions, suggestions, or need support? We&apos;d love to hear from you!
-                        Reach out to us through any of the following channels:
-                    </p>
-                    <div className="space-y-4">
+        <div className="min-h-screen flex flex-col bg-[#0B0B0F] text-slate-100 relative overflow-hidden font-sans antialiased">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-[15%] left-[-10%] w-[50%] h-[35%] rounded-full bg-violet-600/10 blur-[130px] pointer-events-none" />
+            <div className="absolute bottom-[20%] right-[-10%] w-[45%] h-[35%] rounded-full bg-indigo-600/10 blur-[130px] pointer-events-none" />
 
-                        <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-xl">
-                            <svg className="w-6 h-6 shrink-0 text-blue-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12.002 12.002 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
-                            <div>
-                                <p className="text-xs text-blue-500 font-medium">Telegram</p>
-                                {/* <a href="https://t.me/+xiZV9WhjGl05OWU9" className="text-blue-700 font-semibold hover:underline">
-                  https://t.me/+xiZV9WhjGl05OWU9
-                </a> */}
+            <Navbar />
+
+            <main className="flex-1 max-w-3xl mx-auto w-full px-4 sm:px-6 py-12 relative z-10 space-y-6">
+                <div className="space-y-2 text-center sm:text-left">
+                    <div className="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/20 text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-full">
+                        <span>💬 GET IN TOUCH</span>
+                    </div>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-white">Contact Us</h1>
+                    <p className="text-slate-400 text-sm">
+                        Have questions, suggestions, or business inquiries? We&apos;d love to connect.
+                    </p>
+                </div>
+
+                <div className="bg-[#12131F]/90 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl p-6 sm:p-8 space-y-6">
+                    <div className="space-y-4">
+                        <a
+                            href={TELEGRAM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-4 p-4.5 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 border border-blue-500/30 rounded-2xl hover:border-blue-400/60 transition-all duration-200 group cursor-pointer"
+                        >
+                            <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-blue-600/30 group-hover:scale-105 transition-transform">
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.643.135-.953l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
                             </div>
-                        </div>
-                        <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-xl">
-                            <span className="text-2xl">⏰</span>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-xs text-blue-400 font-bold uppercase tracking-wider">Official Telegram Support</p>
+                                <p className="text-white font-extrabold text-sm sm:text-base group-hover:text-blue-300 transition-colors">
+                                    Join Telegram Channel
+                                </p>
+                            </div>
+                            <svg className="w-5 h-5 text-slate-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+
+                        <div className="flex items-center gap-4 p-4.5 bg-white/5 border border-white/10 rounded-2xl">
+                            <div className="w-12 h-12 rounded-xl bg-violet-600/30 border border-violet-500/40 flex items-center justify-center text-xl shrink-0">
+                                ⚡
+                            </div>
                             <div>
-                                <p className="text-xs text-blue-500 font-medium">Response Time</p>
-                                <p className="text-slate-700 font-semibold">Within 24 hours</p>
+                                <p className="text-xs text-violet-300 font-bold uppercase tracking-wider">Response Time</p>
+                                <p className="text-white font-extrabold text-sm sm:text-base">Within 24 Hours</p>
                             </div>
                         </div>
                     </div>
@@ -37,3 +62,4 @@ export default function ContactPage() {
         </div>
     );
 }
+

@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
-        has: [{ type: "host", value: "yonoworld.xyz" }],
-        destination: "https://www.yonoworld.xyz/:path*",
+        has: [{ type: "host", value: "allyonogamesstore.com" }],
+        destination: "https://allyonogamesstore.com/:path*",
         permanent: true, // 301
       },
     ];
@@ -55,7 +55,7 @@ const nextConfig: NextConfig = {
   },
 
 
-  allowedDevOrigins: ["www.yonoworld.xyz", "yonoworld.xyz"],
+  allowedDevOrigins: ["www.allyonogamesstore.com", "allyonogamesstore.com"],
   images: {
     remotePatterns: [
       {
@@ -66,6 +66,16 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "api.allyonogamesstore.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.allyonogamesstore.com",
         pathname: "/**",
       },
     ],

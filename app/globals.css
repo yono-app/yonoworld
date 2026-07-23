@@ -1,22 +1,239 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f0f4ff;
-  --foreground: #0f172a;
+  --background: #0b0b0f;
+  --foreground: #f8fafc;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit), sans-serif;
+  --font-sans: var(--font-outfit), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-outfit), sans-serif;
+  background-color: #0b0b0f;
+  color: #f8fafc;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: #0b0b0f;
 }
+
+/* Glassmorphism & Custom Glow Utilities */
+.glass-card {
+  background: rgba(18, 19, 28, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(24, 25, 38, 0.85);
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.15), inset 0 0 15px rgba(124, 58, 237, 0.05);
+}
+
+.glow-purple {
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.35);
+}
+
+.glow-blue {
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
+}
+
+/* Custom Scrollbar for sleek UI */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0b0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e1f2e;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Infinite Smooth Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee,
+.marquee-track-scroll {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover,
+.marquee-track-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Rich HTML Game Description Styling - Production Grade High Contrast Dark Mode */
+.desc-content {
+  color: #CBD5E1 !important;
+  font-size: 14.5px !important;
+  line-height: 1.8 !important;
+}
+
+.desc-content div {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: inherit !important;
+  color: #CBD5E1 !important;
+  background: transparent !important;
+  line-height: 1.8 !important;
+}
+
+.desc-content h1, .desc-content h2, .desc-content h3, .desc-content h4 {
+  font-family: inherit !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  margin-top: 1.75rem !important;
+  margin-bottom: 0.85rem !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.desc-content h1 {
+  font-size: 1.5rem !important;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.3) !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.desc-content h2 {
+  font-size: 1.3rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding-bottom: 0.6rem !important;
+  color: #F8FAFC !important;
+}
+
+.desc-content h3 {
+  font-size: 1.15rem !important;
+  color: #DDD6FE !important;
+}
+
+.desc-content h4 {
+  font-size: 1rem !important;
+  color: #C4B5FD !important;
+}
+
+.desc-content p, .desc-content li, .desc-content span {
+  font-family: inherit !important;
+  font-size: 14.5px !important;
+  line-height: 1.8 !important;
+  color: #CBD5E1 !important;
+}
+
+.desc-content p {
+  margin-bottom: 1.2rem !important;
+}
+
+.desc-content strong, .desc-content b {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.desc-content a {
+  color: #A78BFA !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease !important;
+}
+
+.desc-content a:hover {
+  color: #C4B5FD !important;
+}
+
+.desc-content blockquote {
+  border-left: 4px solid #7C3AED !important;
+  background: rgba(124, 58, 237, 0.12) !important;
+  padding: 1rem 1.25rem !important;
+  border-radius: 0 16px 16px 0 !important;
+  margin: 1.5rem 0 !important;
+  font-style: italic !important;
+  color: #E2E8F0 !important;
+}
+
+.desc-content ul, .desc-content ol {
+  margin-bottom: 1.25rem !important;
+  padding-left: 1.5rem !important;
+}
+
+.desc-content li {
+  margin-bottom: 0.6rem !important;
+  list-style-type: disc !important;
+  color: #CBD5E1 !important;
+}
+
+.desc-content li::marker {
+  color: #A78BFA !important;
+}
+
+.desc-content ol li {
+  list-style-type: decimal !important;
+}
+
+.desc-content table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  margin: 1.75rem 0 !important;
+  font-size: 13.5px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
+  background: rgba(18, 19, 31, 0.7) !important;
+}
+
+.desc-content th {
+  background: linear-gradient(to right, rgba(124, 58, 237, 0.25), rgba(79, 70, 229, 0.25)) !important;
+  font-weight: 800 !important;
+  text-align: left !important;
+  padding: 14px 18px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+}
+
+.desc-content td {
+  padding: 13px 18px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #CBD5E1 !important;
+}
+
+.desc-content tr:last-child td {
+  border-bottom: none !important;
+}
+
+.desc-content tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.desc-content tr:hover {
+  background: rgba(124, 58, 237, 0.08) !important;
+}
+
+

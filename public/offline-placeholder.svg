@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" fill="none">
+  <rect width="300" height="300" rx="24" fill="#12131F"/>
+  <rect x="1" y="1" width="298" height="298" rx="23" stroke="#7C3AED" stroke-opacity="0.3" stroke-width="2"/>
+  <path d="M110 130C118.284 130 125 123.284 125 115C125 106.716 118.284 100 110 100C101.716 100 95 106.716 95 115C95 123.284 101.716 130 110 130Z" fill="#A78BFA"/>
+  <path d="M70 210L125 155L160 190L195 145L230 210H70Z" fill="#7C3AED" fill-opacity="0.4"/>
+  <text x="150" y="245" text-anchor="middle" fill="#94A3B8" font-family="sans-serif" font-size="12" font-weight="bold">IMAGE OFFLINE</text>
+</svg>

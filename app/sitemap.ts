@@ -1,11 +1,10 @@
 import type { Game } from "./types";
+import { SITE_URL, API_URL } from "@/config/site";
 
-const SITE_URL = "https://www.yonoworld.xyz";
-const API = process.env.NEXT_PUBLIC_API_URL;
 export default async function sitemap() {
   let apps: Game[] = [];
   try {
-    const res = await fetch(`${API}/get-all-game`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_URL}/get-all-game`, { next: { revalidate: 60 } });
     const data = await res.json();
     apps = (data.data || []).filter(Boolean);
   } catch {

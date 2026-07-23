@@ -1,3 +1,5 @@
+import { SITE_HOST } from "@/config/site";
+
 const overviewRows = [
   { label: "New Version", value: "2026 (Updated)" },
   { label: "File Size", value: "70 MB – 100 MB" },
@@ -18,60 +20,51 @@ const apkRows = [
 ];
 
 const steps = [
-  <>Download the APK from its official site or a trusted website like <span className="text-indigo-600 underline cursor-pointer">allyonogamesstore.com</span>.</>,
-  <>Go to your Android Settings &gt; Security &gt; <span className="text-indigo-600">Unknown Sources</span> and enable it.</>,
-  <>Locate the <span className="text-indigo-600">downloaded file</span> in your phone and tap <span className="text-indigo-600">Install</span>.</>,
-  <>Once the app is installed, open the app and register with your <span className="text-indigo-600">phone number</span>.</>,
-  <>Use <span className="text-indigo-600">daily promocode</span> from <span className="text-indigo-600">Telegram channel</span> to get <span className="text-indigo-600">Daily bonus</span>.</>,
+  <>Download the APK from its official site or a trusted directory like <span className="text-violet-400 font-bold underline cursor-pointer">{SITE_HOST}</span>.</>,
+  <>Go to your Android Settings &gt; Security &gt; <span className="text-violet-400 font-bold">Unknown Sources</span> and enable it.</>,
+  <>Locate the <span className="text-violet-400 font-bold">downloaded APK file</span> in your Downloads folder and tap <span className="text-violet-400 font-bold">Install</span>.</>,
+  <>Once the app is installed, open it and register with your <span className="text-violet-400 font-bold">mobile number</span>.</>,
+  <>Use daily promo codes from our <span className="text-violet-400 font-bold">Telegram channel</span> to claim <span className="text-violet-400 font-bold">Daily Bonuses</span>.</>,
 ];
 
 export default function YonoOverview() {
   return (
-    <section className="bg-white py-10 md:py-14">
+    <section className="bg-[#0B0B0F] py-12 md:py-16 border-t border-white/10 text-slate-100">
       <div className="max-w-4xl mx-auto px-4 md:px-6">
 
-        {/* ── Hero heading ── */}
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 leading-snug mb-3">
+        {/* Hero heading */}
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-snug mb-4">
           All Yono Games APK Download (2026) – Rummy, Club &amp; VIP +{" "}
-          <span className="text-orange-500">Rs 1500 Bonus</span>
+          <span className="text-amber-400">Rs 1500 Bonus</span>
         </h2>
 
         {/* Intro paragraph */}
-        <p className="text-gray-700 text-sm md:text-[15px] leading-7 mb-4 text-justify">
+        <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-6 text-justify">
           Are you ready to dive into the world of Yono Games all in one place? Whether you&apos;re
-          searching for the classic <span className="text-indigo-600 underline cursor-pointer">Yono Rummy</span>{" "}
-          app or eager to explore <span className="text-indigo-600 underline cursor-pointer">VIP</span> and
-          mod features, this guide has everything you need – from{" "}
-          <span className="text-indigo-600 underline cursor-pointer">download links</span> to{" "}
-          <span className="text-indigo-600 underline cursor-pointer">insider tips</span>. And if
-          you are a new user, you can get up to{" "}
-          <strong>Rs 1500</strong> as a welcome bonus when you sign up with mobile number.
-          Let&apos;s explore the <span className="text-indigo-600 underline cursor-pointer">latest versions</span>{" "}
-          of the Yono apps, know the{" "}
-          <span className="text-indigo-600 underline cursor-pointer">installation steps</span>, and{" "}
-          <span className="text-indigo-600 underline cursor-pointer">get</span> to know the features
-          so that you can enjoy easy winnings!
+          searching for the classic <span className="text-violet-400 font-bold underline cursor-pointer">Yono Rummy</span>{" "}
+          app or eager to explore <span className="text-violet-400 font-bold underline cursor-pointer">VIP</span> and
+          special features, this guide has everything you need – from{" "}
+          <span className="text-violet-400 font-bold underline cursor-pointer">download links</span> to{" "}
+          <span className="text-violet-400 font-bold underline cursor-pointer">insider tips</span>. New users can claim up to{" "}
+          <strong className="text-amber-400">Rs 1500</strong> as a welcome bonus upon phone registration!
         </p>
 
-        {/* ── What Are All Yono Games 2026? ── */}
-        <h3 className="text-lg md:text-xl font-extrabold text-gray-900 mt-8 mb-2">
+        {/* What Are All Yono Games 2026 */}
+        <h3 className="text-xl md:text-2xl font-extrabold text-white mt-10 mb-3">
           What Are All Yono Games 2026?
         </h3>
-        <p className="text-gray-700 text-sm md:text-[15px] leading-7 mb-6 text-justify">
-          &ldquo;<span className="text-indigo-600 underline cursor-pointer">All Yono Games</span>&rdquo; is a
-          term that refers to the huge collection of mobile gaming apps under the Yono brand.
-          These Android APKs feature a diverse range of card and casino-style games, including{" "}
-          <span className="text-indigo-600 underline cursor-pointer">Rummy, Slots, Teen Patti, Arcade, Bingo</span>,
-          and Poker games specifically curated for{" "}
-          <span className="text-indigo-600 underline cursor-pointer">Indian players</span>.
+        <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-8 text-justify">
+          &ldquo;<span className="text-violet-400 font-bold underline cursor-pointer">All Yono Games</span>&rdquo; refers to the complete ecosystem of mobile gaming apps under the Yono brand. These Android APKs feature card and casino games, including{" "}
+          <span className="text-violet-400 font-bold underline cursor-pointer">Rummy, Slots, Teen Patti, Arcade, Bingo</span>,
+          and Poker games specifically tailored for players across India.
         </p>
 
-        {/* ── Overview table ── */}
-        <div className="rounded-lg overflow-hidden border border-gray-200 mb-10">
+        {/* Overview table */}
+        <div className="rounded-3xl overflow-hidden border border-white/10 bg-[#12131F]/90 backdrop-blur-xl shadow-2xl mb-12">
           {/* Table header */}
-          <div className="bg-gray-900 px-5 py-3">
-            <p className="text-yellow-400 font-bold text-sm md:text-base">
-              Yono All Games &amp; Yono Rummy 2026 Overview
+          <div className="bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 px-6 py-4 border-b border-white/10">
+            <p className="text-amber-300 font-extrabold text-base md:text-lg">
+              Yono All Games &amp; Yono Rummy 2026 Specification Overview
             </p>
           </div>
           {/* Rows */}
@@ -80,16 +73,16 @@ export default function YonoOverview() {
               {overviewRows.map((row, i) => (
                 <tr
                   key={i}
-                  className={`border-b border-gray-100 last:border-0 ${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50/60"
+                  className={`border-b border-white/5 last:border-0 ${
+                    i % 2 === 0 ? "bg-white/[0.02]" : "bg-transparent"
                   }`}
                 >
-                  <td className="px-5 py-3 font-semibold text-gray-800 w-2/5 align-top">
+                  <td className="px-6 py-3.5 font-bold text-slate-300 w-2/5 align-top">
                     {row.label}
                   </td>
                   <td
-                    className={`px-5 py-3 align-top ${
-                      row.highlight ? "text-indigo-600" : "text-gray-700"
+                    className={`px-6 py-3.5 align-top font-medium ${
+                      row.highlight ? "text-violet-300 font-bold" : "text-slate-300"
                     }`}
                   >
                     {row.value}
@@ -100,42 +93,40 @@ export default function YonoOverview() {
           </table>
         </div>
 
-        {/* ── Download All Yono Games in One Place ── */}
-        <h3 className="text-lg md:text-xl font-extrabold text-gray-900 mb-1">
+        {/* Download All Yono Games */}
+        <h3 className="text-xl md:text-2xl font-extrabold text-white mb-2">
           Download All Yono Games in One Place
         </h3>
-        <p className="text-gray-600 text-sm mb-4">
-          Here are the most popular APK with quick notes:
+        <p className="text-slate-400 text-sm mb-5">
+          Explore the most popular Yono versions with quick feature notes:
         </p>
 
-        <div className="rounded-lg overflow-hidden border border-gray-200 mb-3">
-          {/* APK table header */}
-          <div className="bg-gray-900 grid grid-cols-3 px-4 py-3 text-sm font-bold">
+        <div className="rounded-3xl overflow-hidden border border-white/10 bg-[#12131F]/90 backdrop-blur-xl shadow-2xl mb-4">
+          <div className="bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 grid grid-cols-3 px-6 py-4 text-xs font-black uppercase tracking-wider border-b border-white/10">
             <span className="text-white">App Name</span>
-            <span className="text-yellow-400">Version Type</span>
-            <span className="text-yellow-400">Features Included</span>
+            <span className="text-amber-300">Version Type</span>
+            <span className="text-amber-300">Features Included</span>
           </div>
-          {/* APK rows */}
           <table className="w-full text-sm">
             <tbody>
               {apkRows.map((row, i) => (
                 <tr
                   key={i}
-                  className={`border-b border-gray-100 last:border-0 ${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50/50"
+                  className={`border-b border-white/5 last:border-0 ${
+                    i % 2 === 0 ? "bg-white/[0.02]" : "bg-transparent"
                   }`}
                 >
-                  <td className="px-4 py-3 font-bold text-gray-900 w-1/3">{row.name}</td>
+                  <td className="px-6 py-3.5 font-extrabold text-white w-1/3">{row.name}</td>
                   <td
-                    className={`px-4 py-3 w-1/3 ${
-                      row.typeHighlight ? "text-indigo-600" : "text-gray-700"
+                    className={`px-6 py-3.5 w-1/3 text-xs font-bold ${
+                      row.typeHighlight ? "text-violet-400" : "text-slate-400"
                     }`}
                   >
                     {row.type}
                   </td>
                   <td
-                    className={`px-4 py-3 w-1/3 ${
-                      row.featHighlight ? "text-indigo-600" : "text-gray-600"
+                    className={`px-6 py-3.5 w-1/3 text-xs ${
+                      row.featHighlight ? "text-violet-300 font-semibold" : "text-slate-300"
                     }`}
                   >
                     {row.features}
@@ -145,28 +136,30 @@ export default function YonoOverview() {
             </tbody>
           </table>
         </div>
-        <p className="text-gray-400 text-xs mb-8">
-          To download, always use trusted websites and avoid unofficial forums that may bundle malware.
+        <p className="text-slate-400 text-xs mb-10">
+          Always use verified directory links to avoid unverified third-party APK packages.
         </p>
 
-        {/* ── How to Install Yono APK? ── */}
-        <h3 className="text-lg md:text-xl font-extrabold text-gray-900 mb-4">
-          How to Install Yono APK?
+        {/* How to Install Yono APK */}
+        <h3 className="text-xl md:text-2xl font-extrabold text-white mb-5">
+          How to Install Yono APK on Android?
         </h3>
-        <ol className="space-y-2 mb-5">
+        <ol className="space-y-3 mb-8">
           {steps.map((step, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-sm md:text-[15px] text-gray-700 leading-relaxed">
-              <span className="shrink-0 font-bold text-gray-900">{i + 1}.</span>
+            <li key={i} className="flex items-start gap-3 p-4 bg-[#12131F]/80 border border-white/10 rounded-2xl text-sm text-slate-300 leading-relaxed">
+              <span className="shrink-0 w-7 h-7 rounded-xl bg-violet-600/30 text-violet-300 border border-violet-500/40 font-black text-xs flex items-center justify-center">
+                {i + 1}
+              </span>
               <span>{step}</span>
             </li>
           ))}
         </ol>
 
         {/* Note box */}
-        <div className="border border-yellow-300 bg-yellow-50 rounded-md px-4 py-3 text-sm text-yellow-800">
-          <strong>Note:</strong>{" "}
-          <span className="text-indigo-600">
-            Avoid using mod APKs with your primary account as they may violate terms of service.
+        <div className="border border-amber-500/30 bg-amber-500/10 rounded-2xl p-4.5 text-xs sm:text-sm text-amber-200 backdrop-blur-md">
+          <strong className="font-bold text-amber-300">Important Tip:</strong>{" "}
+          <span>
+            Always keep your primary phone number bound to your account to prevent losing welcome bonuses and withdrawal access.
           </span>
         </div>
 
@@ -174,3 +167,4 @@ export default function YonoOverview() {
     </section>
   );
 }
+

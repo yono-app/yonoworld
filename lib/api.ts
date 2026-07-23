@@ -1,10 +1,8 @@
 import axios from "axios";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL 
-// || "https://api.yonoworld.xyz/api";
+import { API_URL } from "@/config/site";
 
 const api = axios.create({
-  baseURL: API_BASE,
+  baseURL: API_URL,
   withCredentials: true,
 });
 

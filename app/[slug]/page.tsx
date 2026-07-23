@@ -4,23 +4,14 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import AppCard from "../components/AppCard";
+import RelatedAppsSection from "../components/RelatedAppsSection";
 import Link from "next/link";
 import type { Game } from "../types";
-
-const SITE_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://allyonogamesstore.com";
-const SITE_NAME = "Yono Game Store";
-// const API = process.env.NODE_ENV === "development"
-//   ? "http://localhost:3000"
-//   : "https://api.yonoworld.xyz/api"
-
-const API = process.env.NEXT_PUBLIC_API_URL || "https://api.yonoworld.xyz/api";
+import { TELEGRAM_URL, SITE_NAME, SITE_URL, API_URL, SITE_HOST } from "@/config/site";
 
 async function getGameBySlug(slug: string): Promise<Game | null> {
   try {
-    const res = await fetch(`${API}/get-all-game`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_URL}/get-all-game`, { next: { revalidate: 60 } });
     const data = await res.json();
     const games: Game[] = (data.data || []).filter(Boolean);
     return games.find((g) => g.slug === slug) || null;
@@ -31,7 +22,7 @@ async function getGameBySlug(slug: string): Promise<Game | null> {
 
 async function getAllGames(): Promise<Game[]> {
   try {
-    const res = await fetch(`${API}/get-all-game`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_URL}/get-all-game`, { next: { revalidate: 60 } });
     const data = await res.json();
     return (data.data || []).filter(Boolean);
   } catch {
@@ -39,11 +30,6 @@ async function getAllGames(): Promise<Game[]> {
   }
 }
 
-/**
- * Pre-renders all game slug pages at build time so Googlebot always finds
- * fully-rendered HTML. Falls back to on-demand ISR for any new games added
- * after the last build (Next.js default with `revalidate: 60`).
- */
 export async function generateStaticParams() {
   const games = await getAllGames();
 
@@ -51,7 +37,6 @@ export async function generateStaticParams() {
     slug: game.slug,
   }));
 }
-
 
 export async function generateMetadata({
   params,
@@ -68,15 +53,13 @@ export async function generateMetadata({
     .trim()
     .slice(0, 120);
 
-  const title = `${game.name} APK Download – ₹${game.signupBonus} Bonus`;
+  const title = `${game.name} APK Download – ₹${game.signupBonus} Bonus | All Yono Store`;
 
-  // Natural, unique description per game — avoids the mechanical template that
-  // triggers Google's duplicate-content filter.
   const description = [
-    `${game.name} is a ${game.category} app`,
+    `${game.name} is a top ${game.category} app`,
     game.signupBonus ? `offering a ₹${game.signupBonus} signup bonus` : "",
-    game.minWithdraw ? `with a minimum withdrawal of ₹${game.minWithdraw}` : "",
-    `and a ${game.rating || "4"}/5 star rating.`,
+    game.minWithdraw ? `with minimum withdrawal of ₹${game.minWithdraw}` : "",
+    `and a ${game.rating || "4.8"}/5 star play rating.`,
     plainDescription ? plainDescription + "." : "",
   ]
     .filter(Boolean)
@@ -91,7 +74,7 @@ export async function generateMetadata({
     ...(game.tags || []),
     "all yono games",
     "yono games",
-    "yonoworld.xyz",
+    SITE_HOST,
   ].join(", ");
 
   return {
@@ -109,7 +92,6 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary",
-      site: `${SITE_URL}/${game.slug}`,
       title,
       description,
       images: game.logoUrl ? [game.logoUrl] : [],
@@ -127,126 +109,65 @@ export default async function AppDetailPage({
 
   if (!game) notFound();
 
-  // Related: same category, exclude current game, max 6
   const relatedApps = allGames
     .filter((g) => g._id !== game._id && g.category === game.category);
 
-  // If fewer than 3 related in same category, fill with other games
   const related =
     relatedApps.length >= 2
       ? relatedApps
       : allGames.filter((g) => g._id !== game._id).slice(0, 6);
 
-  const rating = game.rating || 0;
+  const rating = game.rating || 4.8;
   const stars = Array.from({ length: 5 }, (_, i) => ({
     filled: i < Math.floor(rating),
     half: !(i < Math.floor(rating)) && i < rating,
   }));
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50/50 relative overflow-hidden font-sans antialiased">
-      <style>{`
-        .desc-content div {
-          max-width: 100% !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          font-family: inherit !important;
-          color: inherit !important;
-          background: transparent !important;
-          line-height: inherit !important;
-        }
-        .desc-content h1, .desc-content h2, .desc-content h3, .desc-content h4 {
-          font-family: inherit !important;
-          color: #0f172a !important;
-          font-weight: 800 !important;
-          margin-top: 0 !important;
-          margin-bottom: 0.75rem !important;
-          line-height: 1.3 !important;
-        }
-        .desc-content h1 {
-          font-size: 1.3rem !important;
-        }
-        .desc-content h2 {
-          font-size: 1.15rem !important;
-          border-bottom: 1px solid rgba(229, 231, 235, 0.5) !important;
-          padding-bottom: 0.5rem !important;
-        }
-        .desc-content h3 {
-          font-size: 1.05rem !important;
-        }
-        .desc-content h4 {
-          font-size: 0.95rem !important;
-        }
-        .desc-content p, .desc-content li, .desc-content td, .desc-content th {
-          font-family: inherit !important;
-          font-size: 13px !important;
-          line-height: 1.625 !important;
-          color: #475569 !important;
-        }
-        .desc-content p {
-          margin-bottom: 1rem !important;
-        }
-        .desc-content ul, .desc-content ol {
-          margin-bottom: 1.25rem !important;
-          padding-left: 1.25rem !important;
-        }
-        .desc-content li {
-          margin-bottom: 0.5rem !important;
-          list-style-type: disc !important;
-        }
-        .desc-content ol li {
-          list-style-type: decimal !important;
-        }
-        .desc-content table {
-          width: 100% !important;
-          border-collapse: collapse !important;
-          margin: 1.5rem 0 !important;
-          font-size: 12.5px !important;
-          border: 1px solid #f1f5f9 !important;
-          border-radius: 12px !important;
-          overflow: hidden !important;
-        }
-        .desc-content th {
-          background: #f8fafc !important;
-          font-weight: 700 !important;
-          text-align: left !important;
-          padding: 10px 14px !important;
-          border: 1px solid #f1f5f9 !important;
-          color: #334155 !important;
-        }
-        .desc-content td {
-          padding: 10px 14px !important;
-          border: 1px solid #f1f5f9 !important;
-          color: #475569 !important;
-        }
-        .desc-content tr:nth-child(even) {
-          background: #fbfbfb !important;
-        }
-      `}</style>
+    <div className="min-h-screen flex flex-col bg-[#07080E] text-slate-100 relative overflow-hidden font-sans antialiased">
+      {/* Premium Multi-Layered Ambient Lighting */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[300px] bg-violet-600/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-[30%] right-[-10%] w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-sky-600/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,0.1),transparent_70%)] pointer-events-none" />
 
-      {/* Background Glow Blobs for premium depth in body */}
-      <div className="absolute top-[30%] left-[-15%] w-[60%] h-[35%] rounded-full bg-gradient-to-br from-indigo-200/20 to-blue-200/20 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-[10%] right-[-15%] w-[50%] h-[40%] rounded-full bg-gradient-to-br from-purple-200/15 to-rose-200/15 blur-3xl pointer-events-none" />
+      {/* Cyber Grid Pattern Overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
+          backgroundSize: "24px 24px",
+        }}
+      />
 
       <Navbar />
 
-      {/* Full-width Dark Hero Section */}
-      <div className="bg-slate-950 text-white border-b border-slate-900 relative overflow-hidden">
-        {/* Glow effect overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.18),transparent_65%)] pointer-events-none" />
+      {/* Hero Header Section */}
+      <div className="bg-[#0A0B14]/90 text-white border-b border-white/[0.08] relative overflow-hidden backdrop-blur-xl">
+        <div className="max-w-[680px] mx-auto px-4 sm:px-6 py-8 sm:py-10 relative z-10">
 
-        <div className="max-w-[620px] mx-auto px-4 py-8 relative z-10">
-          {/* Breadcrumb (Light styling for dark bg) */}
-          <nav className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-6">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-slate-200">{game.name}</span>
+          {/* Breadcrumb Pill Navigation */}
+          <nav aria-label="Breadcrumb" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-[11px] font-bold text-slate-400 mb-6 shadow-sm">
+            <Link href="/" className="flex items-center gap-1.5 hover:text-white transition-colors duration-150">
+              <svg className="w-3.5 h-3.5 text-violet-400 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">0
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span>Home</span>
+            </Link>
+            <span className="text-slate-600 font-bold select-none">/</span>
+            <Link href="/all-yono-games" className="hover:text-white transition-colors duration-150 hidden sm:inline-block">
+              Apps Directory
+            </Link>
+            <span className="text-slate-600 font-bold select-none hidden sm:inline-block">/</span>
+            <span className="text-violet-300 font-extrabold max-w-[160px] sm:max-w-[240px] truncate" aria-current="page">
+              {game.name}
+            </span>
           </nav>
 
-          {/* Hero Branding Info */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            {/* Logo */}
-            <div className="relative shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 ring-4 ring-indigo-500/10">
+          {/* App Header Main Row */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+            {/* App Icon Avatar */}
+            <div className="relative shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden shadow-2xl shadow-violet-950/80 border border-violet-500/40 ring-4 ring-violet-500/20 group hover:scale-[1.02] transition-transform duration-300">
               {game.logoUrl ? (
                 <Image
                   src={game.logoUrl}
@@ -258,98 +179,119 @@ export default async function AppDetailPage({
                   unoptimized
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-indigo-600 to-blue-700 flex items-center justify-center">
+                <div className="w-full h-full bg-gradient-to-br from-violet-600 via-indigo-700 to-purple-800 flex items-center justify-center">
                   <span className="text-4xl">{game.icon || "🎮"}</span>
                 </div>
               )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             </div>
 
-            {/* Title / Description */}
+            {/* Title & Badges */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5 mb-2">
-                <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded-md">
-                  ⚡ VERIFIED APP
+              {/* Badges Row */}
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1.5 bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[9px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full shadow-sm backdrop-blur-md">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
+                  </span>
+                  <span>VERIFIED 2026</span>
                 </span>
+
+                <span className="inline-flex items-center gap-1 bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[9px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full shadow-sm backdrop-blur-md">
+                  <span>🛡️</span> OFFICIAL APK
+                </span>
+
                 {game.isNewGame && (
-                  <span className="bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded-md">
-                    ✨ NEW
+                  <span className="inline-flex items-center gap-1 bg-rose-500/15 text-rose-400 border border-rose-500/30 text-[9px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full shadow-sm backdrop-blur-md">
+                    <span>✨</span> NEW RELEASE
                   </span>
                 )}
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
+              {/* Title */}
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-violet-200 tracking-tight leading-snug">
                 {game.name}
               </h1>
 
-              {/* Stars block */}
-              <div className="flex items-center gap-2 mt-2">
+              {/* Star Rating & Review Count */}
+              <div className="flex items-center gap-3 mt-2.5">
                 <div className="flex items-center gap-0.5">
                   {stars.map((star, i) => (
-                    <svg key={i} className={`w-3.5 h-3.5 ${star.filled ? "text-amber-400" : star.half ? "text-amber-300" : "text-slate-700"}`} fill="currentColor" viewBox="0 0 20 20">
+                    <svg key={i} className={`w-4 h-4 ${star.filled ? "text-amber-400" : star.half ? "text-amber-300" : "text-slate-700"}`} fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
-                <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">
-                  {rating} ({Math.floor(rating * 1000)}+ votes)
+                <span className="text-xs text-slate-300 font-bold">
+                  {rating} <span className="text-slate-500 font-medium">({Math.floor(rating * 1000)}+ ratings)</span>
                 </span>
               </div>
             </div>
           </div>
 
-          {/* CTA Action Row inside Dark Hero */}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          {/* Action CTAs */}
+          <div className="mt-8 flex flex-col sm:flex-row gap-3.5">
             <a
               href={game.downloadUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 text-white font-black text-sm sm:text-base py-3 px-4 text-center rounded-2xl shadow-lg shadow-orange-500/20 hover:scale-[1.01] active:scale-95 transition-all duration-150 uppercase tracking-widest cursor-pointer"
+              className="flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-black text-sm sm:text-base py-3.5 px-6 text-center rounded-2xl shadow-xl shadow-violet-600/30 hover:scale-[1.01] active:scale-95 transition-all duration-200 uppercase tracking-wider cursor-pointer border border-violet-400/30"
             >
-              <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 shrink-0 animate-bounce-short" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              <span>Download APK</span>
+              <span>Download Official APK</span>
             </a>
 
-            {/* <a
-              href="https://t.me/+xiZV9WhjGl05OWU9"
+            <a
+              href={TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold text-xs sm:text-sm py-3 px-6 text-center rounded-2xl hover:scale-[1.01] active:scale-95 transition-all duration-150"
+              className="flex items-center justify-center gap-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 hover:from-blue-500 hover:to-sky-500 text-white font-black text-sm sm:text-base py-3.5 px-6 text-center rounded-2xl shadow-xl shadow-blue-600/25 hover:scale-[1.01] active:scale-95 transition-all duration-200 uppercase tracking-wider cursor-pointer border border-blue-400/30"
             >
-              <svg className="w-4 h-4 shrink-0 text-blue-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12.002 12.002 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+              <svg className="w-5 h-5 shrink-0 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.643.135-.953l11.566-4.458c.538-.196 1.006.128.832.941z" />
               </svg>
-              <span>Telegram Channel</span>
-            </a> */}
+              <span>Join Telegram</span>
+            </a>
           </div>
 
-          {/* Hero Stats Badges Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex flex-col justify-between shadow-inner">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Signup Bonus</span>
-              <p className="text-white font-extrabold text-sm sm:text-base mt-1">₹{game.signupBonus}</p>
+          {/* Key Metrics Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8">
+            <div className="bg-[#121422]/90 backdrop-blur-xl border border-rose-500/30 rounded-2xl p-4 flex flex-col justify-between shadow-lg hover:border-rose-500/50 transition-colors">
+              <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+                <span>🎁</span> Signup Bonus
+              </span>
+              <p className="text-rose-300 font-black text-base sm:text-lg mt-1.5">₹{game.signupBonus}</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex flex-col justify-between shadow-inner">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Min Withdraw</span>
-              <p className="text-white font-extrabold text-sm sm:text-base mt-1">₹{game.minWithdraw}</p>
+            <div className="bg-[#121422]/90 backdrop-blur-xl border border-emerald-500/30 rounded-2xl p-4 flex flex-col justify-between shadow-lg hover:border-emerald-500/50 transition-colors">
+              <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+                <span>⚡</span> Min Withdraw
+              </span>
+              <p className="text-emerald-300 font-black text-base sm:text-lg mt-1.5">₹{game.minWithdraw}</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex flex-col justify-between shadow-inner">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">App Package Size</span>
-              <p className="text-white font-extrabold text-sm sm:text-base mt-1">{game.size}</p>
+            <div className="bg-[#121422]/90 backdrop-blur-xl border border-violet-500/30 rounded-2xl p-4 flex flex-col justify-between shadow-lg hover:border-violet-500/50 transition-colors">
+              <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+                <span>📦</span> App Size
+              </span>
+              <p className="text-violet-200 font-black text-base sm:text-lg mt-1.5">{game.size || "35 MB"}</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3 flex flex-col justify-between shadow-inner">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Play Rating</span>
-              <p className="text-white font-extrabold text-sm sm:text-base mt-1">★ {rating}</p>
+            <div className="bg-[#121422]/90 backdrop-blur-xl border border-amber-500/30 rounded-2xl p-4 flex flex-col justify-between shadow-lg hover:border-amber-500/50 transition-colors">
+              <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+                <span>★</span> Play Rating
+              </span>
+              <p className="text-amber-300 font-black text-base sm:text-lg mt-1.5">{rating} / 5</p>
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Main Body Section */}
-      <main className="flex-1 w-full max-w-[620px] mx-auto px-4 py-6 relative z-10">
+      {/* Main Content Area */}
+      <main className="flex-1 w-full max-w-[680px] mx-auto px-4 sm:px-6 py-8 relative z-10 space-y-7">
 
-        {/* JSON-LD structure mapping */}
+        {/* JSON-LD Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -375,92 +317,147 @@ export default async function AppDetailPage({
           }}
         />
 
-        {/* Specifications Card Table */}
-        <div className="bg-white rounded-3xl border border-slate-200/50 shadow-xl shadow-slate-100/20 overflow-hidden mb-6">
-          <div className="px-5 py-4 border-b border-slate-100 bg-slate-50/50">
-            <h3 className="font-extrabold text-slate-800 text-xs uppercase tracking-wider">App Specifications</h3>
+        {/* App Specifications Card */}
+        <div className="bg-[#121320]/90 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl overflow-hidden">
+          {/* Section Header */}
+          <div className="px-6 py-4 border-b border-white/10 bg-white/5 flex items-center justify-between">
+            <h3 className="font-extrabold text-white text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-500/50" />
+              <span>App Specification &amp; System Requirements</span>
+            </h3>
+            <span className="text-[10px] font-black text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 rounded-full uppercase tracking-wider">
+              100% VERIFIED
+            </span>
           </div>
-          <div className="divide-y divide-slate-100 text-xs sm:text-sm">
+
+          {/* Specifications List */}
+          <div className="divide-y divide-white/5 text-xs sm:text-sm">
             {[
-              { label: "App Name", value: game.name },
-              { label: "Category", value: game.category },
-              { label: "Signup Bonus", value: `₹${game.signupBonus}` },
-              { label: "Min Withdrawal", value: `₹${game.minWithdraw}` },
-              { label: "File Size", value: game.size },
-              { label: "Status", value: "Verified & Secure" },
+              { icon: "📱", label: "App Name", value: game.name },
+              { icon: "🏷️", label: "Category", value: game.category || "Rummy & Slots" },
+              {
+                icon: "🎁",
+                label: "Signup Bonus",
+                value: `₹${game.signupBonus}`,
+                render: (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-rose-500/15 text-rose-300 border border-rose-500/30">
+                    🎁 ₹{game.signupBonus} Bonus
+                  </span>
+                ),
+              },
+              {
+                icon: "⚡",
+                label: "Min Withdrawal",
+                value: `₹${game.minWithdraw}`,
+                render: (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                    ⚡ ₹{game.minWithdraw} Instant
+                  </span>
+                ),
+              },
+              { icon: "📦", label: "File Package Size", value: game.size || "35 MB" },
+              { icon: "🤖", label: "OS Requirement", value: "Android 5.0 and higher" },
+              {
+                icon: "🛡️",
+                label: "Security & Safety",
+                value: "Passed Malware & Virus Scan",
+                render: (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-300">
+                    <span>🛡️</span> Passed Malware &amp; Virus Scan
+                  </span>
+                ),
+              },
             ].map((item, idx) => (
-              <div key={idx} className="flex p-4 hover:bg-slate-50/30 transition-colors duration-150">
-                <span className="w-1/3 text-slate-400 font-bold uppercase tracking-wider text-[10px] sm:text-xs my-auto">{item.label}</span>
-                <span className="w-2/3 text-slate-800 font-extrabold">{item.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Long Description Card */}
-        <div className="bg-white rounded-3xl border border-slate-200/50 shadow-xl shadow-slate-100/20 p-5 sm:p-6 mb-6">
-
-          {/* <div className="desc-content text-slate-600 text-xs sm:text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: game.longDescription || "" }} /> */}
-
-          {/* Tags */}
-          {/* {(game.tags || []).length > 0 && (
-            <div className="mt-6 pt-5 border-t border-slate-100">
-              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Keywords</h3>
-              <div className="flex flex-wrap gap-2">
-                {(game.tags || []).map((tag) => (
-                  <span key={tag} className="bg-slate-100 text-slate-600 text-[11px] font-bold px-3.5 py-1.5 rounded-full hover:bg-slate-200/80 transition-colors cursor-default border border-slate-200/20">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )} */}
-        </div>
-
-        {/* FAQs */}
-        {/* {(game.faqs || []).length > 0 && (
-          <div className="mt-2 mb-6 flex flex-col gap-3.5">
-            <h2 className="px-1 text-xs font-bold text-slate-400 uppercase tracking-widest">
-              Frequently Asked Questions
-            </h2>
-            {game.faqs!.map((faq, idx) => (
-              <details key={idx} className="bg-white border border-slate-200/60 text-slate-800 rounded-2xl shadow-sm group overflow-hidden transition-all duration-300 hover:border-slate-300/85">
-                <summary className="font-extrabold text-[13px] sm:text-[14px] p-4.5 cursor-pointer list-none flex justify-between items-center bg-slate-50/50 hover:bg-slate-50 transition-colors">
-                  <div className="flex items-center gap-2.5">
-                    <span className="bg-indigo-500/10 text-indigo-600 font-black text-[10px] px-2 py-0.5 rounded-md">
-                      {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-                    </span>
-                    <span>{faq.question}</span>
-                  </div>
-                  <span className="transition-transform duration-200 group-open:rotate-180 shrink-0 ml-4">
-                    <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </summary>
-                <div className="text-[13px] whitespace-pre-line leading-relaxed px-5 pb-5 pt-4 border-t border-slate-100/80 text-slate-600">
-                  <span className="font-bold text-slate-800 block mb-1">Answer:</span>
-                  {faq.answer}
+              <div key={idx} className="flex items-center p-4 sm:px-6 hover:bg-white/[0.02] transition-colors duration-150 gap-4">
+                <div className="w-1/3 flex items-center gap-2 text-slate-400 font-bold uppercase tracking-wider text-[10px] sm:text-xs">
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
                 </div>
-              </details>
+                <div className="w-2/3 text-white font-extrabold">
+                  {item.render || item.value}
+                </div>
+              </div>
             ))}
           </div>
-        )} */}
+        </div>
 
-        {/* Related Apps List */}
-        {related.length > 0 && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-1.5 px-1.5 text-xs font-bold text-slate-400 uppercase tracking-widest">
-              <span>✨</span>
-              <span>People Also Downloaded</span>
+        {/* HTML Description Block */}
+        {game.longDescription && (
+          <div className="bg-[#121320]/90 rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl overflow-hidden">
+            {/* Description Header Accent Bar */}
+            <div className="h-1 bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600" />
+
+            <div className="p-6 sm:p-8 space-y-6">
+              {/* Header Title */}
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <h2 className="text-lg font-black text-white flex items-center gap-2">
+                  <span className="text-violet-400">📖</span>
+                  <span>App Overview &amp; Detailed Guide</span>
+                </h2>
+                <span className="text-[10px] font-black text-violet-300 bg-violet-500/10 border border-violet-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  VERIFIED INFO
+                </span>
+              </div>
+
+              {/* Description Content */}
+              <div className="desc-content" dangerouslySetInnerHTML={{ __html: game.longDescription }} />
+
+              {/* Related Tags */}
+              {game.tags && game.tags.length > 0 && (
+                <div className="pt-6 border-t border-white/10">
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                    <span>🏷️</span> Related Tags
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {game.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="bg-white/5 hover:bg-violet-500/15 border border-white/10 hover:border-violet-500/30 text-slate-300 hover:text-violet-300 text-xs font-semibold px-3 py-1 rounded-full transition-colors cursor-default"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="bg-white rounded-3xl border border-slate-200/50 shadow-xl shadow-slate-100/20 overflow-hidden divide-y divide-slate-100">
-              {related.map((relGame, idx) => (
-                <AppCard key={relGame._id} game={relGame} index={idx + 1} />
+          </div>
+        )}
+
+        {/* App FAQs Accordion */}
+        {(game.faqs || []).length > 0 && (
+          <div className="space-y-3">
+            <h2 className="px-1 text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+              <span>❓</span> Frequently Asked Questions
+            </h2>
+            <div className="space-y-3">
+              {game.faqs!.map((faq, idx) => (
+                <details key={idx} className="bg-[#121320]/90 border border-white/10 text-white rounded-2xl shadow-md group overflow-hidden transition-all duration-300">
+                  <summary className="font-extrabold text-sm p-4.5 cursor-pointer list-none flex justify-between items-center bg-white/5 hover:bg-white/10 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <span className="bg-violet-500/20 text-violet-300 font-black text-[10px] px-2 py-0.5 rounded-md border border-violet-500/30">
+                        0{idx + 1}
+                      </span>
+                      <span>{faq.question}</span>
+                    </div>
+                    <span className="transition-transform duration-200 group-open:rotate-180 shrink-0 ml-4 text-slate-400">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="text-xs sm:text-sm whitespace-pre-line leading-relaxed px-5 pb-5 pt-4 border-t border-white/10 text-slate-300">
+                    <strong className="text-violet-300 block mb-1">Answer:</strong>
+                    {faq.answer}
+                  </div>
+                </details>
               ))}
             </div>
           </div>
         )}
+
+        {/* Related Apps List */}
+        <RelatedAppsSection games={related} pageSize={5} />
       </main>
 
       <Footer tags={game.tags} />

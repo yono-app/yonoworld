@@ -1,8 +1,7 @@
 import React from "react";
+import { TELEGRAM_URL } from "@/config/site";
 
-const TELEGRAM_URL = "https://t.me/+nRSW8hi2MXhiYzdl";
-
-const TelegramIcon = ({ size = 28 }: { size?: number }) => (
+const TelegramIcon = ({ size = 22 }: { size?: number }) => (
   <svg
     width={size}
     height={size}
@@ -16,19 +15,19 @@ const TelegramIcon = ({ size = 28 }: { size?: number }) => (
 
 const TelegramCTA = () => {
   return (
-    <section className="py-4 md:py-5 bg-white">
-      <div className="flex justify-center px-4">
+    <section className="py-6 md:py-8 bg-[#0B0B0F] border-t border-white/10 relative overflow-hidden">
+      <div className="flex justify-center px-4 relative z-10">
         <a
           href={TELEGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 md:gap-2.5 bg-white text-sky-500 hover:text-white hover:bg-sky-500 border-2 border-sky-500 px-5 md:px-8 py-2 md:py-2.5 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+          className="group inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-extrabold px-6 sm:px-10 py-3.5 rounded-2xl shadow-xl shadow-blue-600/25 border border-blue-400/30 transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer text-sm sm:text-base tracking-wide"
         >
-          <TelegramIcon size={20} />
-          <span className="text-sm md:text-base font-bold tracking-tight">
-            Join Our Telegram Channel
-          </span>
-          <TelegramIcon size={20} />
+          <TelegramIcon size={22} />
+          <span>Join Official Telegram Channel</span>
+          <svg className="w-4 h-4 text-blue-200 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
         </a>
       </div>
     </section>
@@ -36,3 +35,4 @@ const TelegramCTA = () => {
 };
 
 export default TelegramCTA;
+

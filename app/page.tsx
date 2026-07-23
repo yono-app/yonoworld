@@ -1,17 +1,9 @@
-// Server component — exports SEO metadata and renders client component
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import HomeClient from "./_home_client";
 import Script from "next/script";
-
-
 import type { Game } from "@/store/slices/gameSlice";
-
-
-const SITE_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://allyonogamesstore.com";
-const SITE_NAME = "Yono Game Store";
+import { SITE_NAME, SITE_URL, API_URL } from "@/config/site";
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} – All Yono Games Download Link | Yono Games `,
@@ -28,24 +20,21 @@ export const metadata: Metadata = {
       "Browse 50+ Yono apps with bonuses, ratings  — updated daily on All Yono Games.",
     images: [
       {
-        url: `${SITE_URL}/logo.jpeg`,
+        url: `${SITE_URL}/logo.png`,
         width: 1200,
         height: 630,
         alt: SITE_NAME
       }
     ],
   },
-
-
   twitter: {
     card: "summary_large_image",
     site: SITE_URL,
     title: `${SITE_NAME} – Best Yono Apps 2026`,
     description: "Compare & download the top Yono, Slots & casino apps with the highest signup bonuses.",
-    images: [`${SITE_URL}/logo.jpeg`],
+    images: [`${SITE_URL}/logo.png`],
   },
 };
-
 
 async function getGames(): Promise<Game[]> {
   try {
@@ -54,7 +43,7 @@ async function getGames(): Promise<Game[]> {
 
     while (true) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/get-all-game?page=${page}&limit=100`,
+        `${API_URL}/get-all-game?page=${page}&limit=100`,
         {
           next: {
             revalidate: 60,
@@ -65,15 +54,12 @@ async function getGames(): Promise<Game[]> {
       if (!res.ok) break;
 
       const data = await res.json();
-
       const batch = (data.data || []).filter(Boolean);
 
       if (batch.length === 0) break;
-
       games.push(...batch);
 
       if (batch.length < 100) break;
-
       page++;
     }
 
@@ -84,36 +70,25 @@ async function getGames(): Promise<Game[]> {
   }
 }
 
-
-
 export default async function HomePage() {
-
   const games = await getGames();
-  // console.log("Server games:", games.length);
 
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "@id": `${SITE_URL}/#itemlist`,
-
     name: `${SITE_NAME}`,
-
     description:
       "Collection of Yono earning apps, Rummy apps, Slots and Casino games.",
-
     itemListOrder: "https://schema.org/ItemListOrderAscending",
-
     numberOfItems: games.length,
-
     itemListElement: games.map((game, index) => ({
       "@type": "ListItem",
-
       position: index + 1,
-
       item: {
         "@type": "SoftwareApplication",
         name: game.name,
-        url: `${SITE_URL}/${game.slug}`, // Adjust to your route
+        url: `${SITE_URL}/${game.slug}`,
         applicationCategory: "Game",
         operatingSystem: "Android",
       },
@@ -130,10 +105,13 @@ export default async function HomePage() {
         }}
       />
 
-      <HomeClient
-        initialGames={games}
-        showFixedCard={true}
-      />
+      <Suspense fallback={null}>
+        <HomeClient
+          initialGames={games}
+          showFixedCard={true}
+        />
+      </Suspense>
     </>
   );
 }
+

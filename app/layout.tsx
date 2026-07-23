@@ -1,28 +1,28 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { Providers } from "./providers";
+import { TELEGRAM_URL, SITE_NAME, SITE_URL, SITE_DESCRIPTION, SUPPORT_EMAIL } from "@/config/site";
+import { PwaRegister } from "./components/PwaRegister";
+
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
 });
 
-const SITE_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://allyonogamesstore.com";
-const SITE_NAME = "Yono Game Store";
-const API = process.env.NODE_ENV === "development"
-  ? "http://localhost:3000"
-  : "https://api.yonoworld.xyz/api"
-
-
-const SITE_DESCRIPTION =
-  "Discover and download 50+ top Yono earning apps — Yono Rummy, Yono 777, Jaiho Games, Slots & more. Compare signup bonuses, withdrawal limits, and ratings on All Yono Games.";
+export const viewport: Viewport = {
+  themeColor: "#0B0B0F",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: SITE_NAME,
+    statusBarStyle: "black-translucent",
+  },
 
   title: {
     default: `${SITE_NAME} – Download All Yono Rummy, Slots & Earning Apps`,
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: `${SITE_URL}/logo.jpeg`,
+        url: `${SITE_URL}/logo.png`,
         width: 1200,
         height: 630,
         alt: `${SITE_NAME} – All Yono Games Download`,
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} – Download All Yono Games`,
     description: SITE_DESCRIPTION,
-    images: [`${SITE_URL}/logo.jpeg`],
+    images: [`${SITE_URL}/logo.png`],
   },
 };
 
@@ -112,12 +112,12 @@ const organizationSchema = {
     "@type": "ImageObject",
     "@id": `${SITE_URL}/#logo`,
 
-    url: `${SITE_URL}/logo.jpeg`,
+    url: `${SITE_URL}/logo.png`,
   },
 
-  email: "moreyonogames@gmail.com",
+  email: SUPPORT_EMAIL,
 
-  sameAs: ["https://t.me/+xiZV9WhjGl05OWU9"],
+  sameAs: [TELEGRAM_URL],
 };
 
 // ===========================
@@ -141,10 +141,9 @@ const websiteSchema = {
   alternateName: [
     "YonoWorld",
     "Yono World",
-    "Yono World App Store",
     "Yono Games",
     "Yono Apps",
-    "YonoWorld.xyz",
+    "All Yono Apps Store",
     "All Yono Games",
   ],
 
@@ -186,7 +185,7 @@ const webPageSchema = {
   primaryImageOfPage: {
     "@type": "ImageObject",
 
-    url: `${SITE_URL}/og-image.png`,
+    url: `${SITE_URL}/logo.png`,
   },
 
   inLanguage: "en-IN",
@@ -232,9 +231,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Theme color */}
-        <meta name="theme-color" content="#5b21b6" />
-
         {/* Organization Schema */}
         <Script
           id="organization-schema"
@@ -276,8 +272,11 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="min-h-screen flex flex-col bg-slate-50">
-        <Providers>{children}</Providers>
+      <body className="min-h-screen flex flex-col bg-[#0B0B0F] text-slate-100 selection:bg-purple-600 selection:text-white" suppressHydrationWarning>
+        <Providers>
+          {children}
+          <PwaRegister />
+        </Providers>
       </body>
     </html>
   );

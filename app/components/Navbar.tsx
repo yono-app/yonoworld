@@ -3,13 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { TELEGRAM_URL, SITE_NAME } from "@/config/site";
 
 const topNavLinks = [
-
   { label: "Disclaimer", href: "/disclaimer" },
   { label: "Blog", href: "/blog" },
   { label: "All Yono Games", href: "/all-yono-games" },
-  { label: "All Yono Games Store Apk", href: "/apk" },
+  { label: "All Yono Store APK", href: "/apk" },
 ];
 
 const secondMenuLinks = [
@@ -65,95 +65,103 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Top Notification Bar ── */}
-      <div className="bg-[#00b341] text-white text-xs sm:text-sm font-semibold py-2 px-4 text-center flex items-center justify-center gap-2 z-50 relative">
-        <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12.002 12.002 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-        </svg>
-        <span>🎁 SIGN-UP, SEND UID &amp; GET SPECIAL REWARDS!</span>
+      {/* ── Top Announcement Bar ── */}
+      <div className="bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 text-white text-xs sm:text-sm font-medium py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-2 z-50 relative">
+        <span className="relative flex h-2 w-2 shrink-0">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span className="text-purple-200">🎁 SIGN-UP &amp; CLAIM UP TO ₹1500 REWARDS!</span>
         <a
-          href="https://t.me/+xiZV9WhjGl05OWU9"
+          href={TELEGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline font-bold hover:text-yellow-200 transition-colors"
+          className="underline font-bold text-amber-300 hover:text-amber-200 transition-colors"
         >
-          Join our Telegram
+          Join Telegram
         </a>
       </div>
 
-      {/* ── Main Header ── */}
-      <header className="bg-gradient-to-r from-[#4b0082] via-[#6a0dad] to-[#7b1fa2] shadow-lg sticky top-0 z-40">
+      {/* ── Main Glass Header ── */}
+      <header className="bg-[#0F101A]/90 backdrop-blur-xl border-b border-white/10 sticky top-0 z-40 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            {/* Logo + Name */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden ring-2 ring-yellow-400/60 group-hover:ring-yellow-300 transition-all duration-300 shadow-md">
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            {/* Logo + Brand Name */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-2xl overflow-hidden ring-2 ring-violet-500/50 group-hover:ring-violet-400 transition-all duration-300 shadow-lg shadow-violet-500/20">
                 <Image
-                  src="/logo.jpg"
+                  src="/logo.png"
                   alt="All Yono Games Logo"
                   fill
                   className="object-cover"
-                  sizes="40px"
+                  sizes="44px"
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-yellow-300 font-extrabold text-base sm:text-lg tracking-wide drop-shadow">
-                  All Yono Games Store
-                </span>
-                <span className="text-purple-200 text-[10px] sm:text-xs font-medium">
-                  ⭐ Yono All Games List 2026
+                <div className="flex items-center gap-1.5">
+                  <span className="text-white font-extrabold text-base sm:text-lg tracking-tight group-hover:text-violet-300 transition-colors">
+                    {SITE_NAME}
+                  </span>
+                  <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">
+                    Verified
+                  </span>
+                </div>
+                <span className="text-slate-400 text-[10px] sm:text-xs font-medium">
+                  ⭐ Official Rummy &amp; Slots Directory 2026
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Top Nav Links */}
-            <nav className="hidden lg:flex items-center gap-0.5">
+            {/* Desktop Top Links */}
+            <nav className="hidden lg:flex items-center gap-1 bg-white/5 border border-white/10 p-1.5 rounded-2xl backdrop-blur-md">
               {topNavLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-2 text-purple-100 hover:text-white font-medium text-xs xl:text-sm rounded-lg hover:bg-white/10 transition-all duration-200 whitespace-nowrap"
+                  className="px-3.5 py-1.5 text-slate-300 hover:text-white font-medium text-xs xl:text-sm rounded-xl hover:bg-violet-600/30 hover:border-violet-500/30 transition-all duration-200 whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Download APK Button */}
-            <a
-              href="/apk"
-              className="hidden sm:flex items-center gap-1.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-lg shadow-md active:scale-95 transition-all duration-200 shrink-0"
-            >
-              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Download APK
-            </a>
+            {/* CTA Download APK */}
+            <div className="flex items-center gap-3">
+              <a
+                href="/apk"
+                className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg shadow-violet-600/25 active:scale-95 transition-all duration-200 border border-violet-400/30 shrink-0"
+              >
+                <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Download APK</span>
+              </a>
 
-            {/* Mobile hamburger */}
-            <button
-              className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open Menu"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+              {/* Mobile Hamburger Button */}
+              <button
+                className="lg:hidden text-slate-300 hover:text-white p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition"
+                onClick={() => setMobileOpen(true)}
+                aria-label="Open Menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* ── Second Menu Bar (desktop) ── */}
-        <div className="hidden md:block bg-white border-b border-gray-200 shadow-sm">
+        {/* ── Desktop Secondary Menu Bar ── */}
+        <div className="hidden md:block bg-[#0B0C14]/80 border-t border-white/5 shadow-inner">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center gap-1 py-1.5">
+            <div className="flex items-center justify-center gap-2 py-2">
               {secondMenuLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-1.5 px-4 py-1.5 text-slate-700 hover:text-purple-700 font-semibold text-sm rounded-lg hover:bg-purple-50 transition-all duration-200 whitespace-nowrap"
+                  className="flex items-center gap-2 px-4 py-1.5 text-slate-400 hover:text-violet-300 font-semibold text-xs rounded-xl hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
                 >
-                  <span className="text-purple-600">{link.icon}</span>
+                  <span className="text-violet-400">{link.icon}</span>
                   {link.label}
                 </Link>
               ))}
@@ -162,33 +170,39 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ── Mobile Drawer ── */}
+      {/* ── Mobile Drawer Overlay ── */}
       <div className="lg:hidden">
         {/* Backdrop */}
         <div
           aria-hidden="true"
           onClick={() => setMobileOpen(false)}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/80 backdrop-blur-md z-40 transition-opacity duration-300"
           style={{ opacity: mobileOpen ? 1 : 0, pointerEvents: mobileOpen ? "auto" : "none" }}
         />
 
         {/* Drawer panel */}
         <div
-          className="fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-[#4b0082] to-[#2d0052] z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation Menu"
+          className="fixed top-0 right-0 h-full w-80 bg-[#0F101A] border-l border-white/10 z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out"
           style={{ transform: mobileOpen ? "translateX(0)" : "translateX(100%)" }}
         >
-          {/* Drawer header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-purple-700/50">
-            <div className="flex items-center gap-2">
-              <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0">
-                <Image src="/logo.jpg" alt="logo" fill className="object-cover" sizes="32px" />
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-white/5">
+            <div className="flex items-center gap-3">
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden shrink-0 border border-violet-500/40">
+                <Image src="/logo.png" alt="logo" fill className="object-cover" sizes="36px" />
               </div>
-              <span className="text-yellow-300 font-bold text-sm">All Yono Games Store</span>
+              <div className="flex flex-col">
+                <span className="text-white font-bold text-sm">{SITE_NAME}</span>
+                <span className="text-violet-400 text-[10px] font-semibold">Store &amp; Directory</span>
+              </div>
             </div>
             <button
               onClick={() => setMobileOpen(false)}
               aria-label="Close Menu"
-              className="text-purple-200 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition"
+              className="text-slate-400 hover:text-white p-2 rounded-xl bg-white/5 border border-white/10 transition"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
@@ -196,43 +210,60 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Nav links */}
-          <nav className="flex flex-col gap-1 px-4 py-6 flex-1">
-            {secondMenuLinks.map((link, i) => (
+          {/* Drawer Links */}
+          <nav className="flex flex-col gap-1.5 px-4 py-6 flex-1 overflow-y-auto">
+            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-3 mb-1">
+              Navigation
+            </div>
+            {secondMenuLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 text-purple-100 hover:text-white font-medium text-sm rounded-xl hover:bg-white/10 transition-all duration-200"
-                style={{ transitionDelay: mobileOpen ? `${i * 60}ms` : "0ms" }}
+                className="flex items-center gap-3.5 px-4 py-3 text-slate-300 hover:text-white font-medium text-sm rounded-xl hover:bg-violet-600/20 hover:border-violet-500/30 border border-transparent transition-all duration-200"
               >
-                <span className="text-yellow-300">{link.icon}</span>
+                <span className="text-violet-400">{link.icon}</span>
+                {link.label}
+              </Link>
+            ))}
+
+            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-3 mt-4 mb-1">
+              Directory &amp; Resources
+            </div>
+            {topNavLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3.5 px-4 py-2.5 text-slate-400 hover:text-slate-200 font-medium text-sm rounded-xl hover:bg-white/5 transition-all duration-200"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0" />
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Telegram CTA */}
-          <div className="px-5 py-4 border-t border-purple-700/50">
+          {/* Drawer Actions Footer */}
+          <div className="p-5 border-t border-white/10 bg-white/5 space-y-2.5">
             <a
-              href="https://t.me/+xiZV9WhjGl05OWU9"
+              href={TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full bg-[#00b341] hover:bg-green-500 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors duration-200"
+              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition-all duration-200"
             >
               <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12.002 12.002 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12.002 12.002 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
               </svg>
-              Join Telegram
+              Join Telegram Community
             </a>
             <a
               href="/apk"
-              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:opacity-90 text-white text-sm font-semibold py-2.5 rounded-xl mt-2 transition-all duration-200"
+              className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-bold py-3 rounded-xl transition-all duration-200 border border-violet-400/30"
             >
               <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Download APK
+              Download Official Store APK
             </a>
           </div>
         </div>
@@ -240,3 +271,4 @@ export default function Navbar() {
     </>
   );
 }
+
