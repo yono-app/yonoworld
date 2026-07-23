@@ -72,7 +72,7 @@ const SeoContent = () => {
           </h3>
 
           <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-            Select your preferred app from our list, tap the <span className="font-bold text-violet-400">Download</span> button, download the APK package, and enable "Install from Unknown Sources" in your device settings. Once installed, bind your phone number to receive your welcome bonus.
+            Select your preferred app from our list, tap the <span className="font-bold text-violet-400">Download</span> button, download the APK package, and enable &quot;Install from Unknown Sources&quot; in your device settings. Once installed, bind your phone number to receive your welcome bonus.
           </p>
 
           {/* Process Step Grid */}

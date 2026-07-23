@@ -127,15 +127,15 @@ export default function Navbar() {
 
             {/* CTA Download APK */}
             <div className="flex items-center gap-3">
-              <a
+              <Link
                 href="/apk"
                 className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg shadow-violet-600/25 active:scale-95 transition-all duration-200 border border-violet-400/30 shrink-0"
               >
                 <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                <span>Download APK</span>
-              </a>
+                <span>Download App Hub</span>
+              </Link>
 
               {/* Mobile Hamburger Button */}
               <button
@@ -256,19 +256,18 @@ export default function Navbar() {
               </svg>
               Join Telegram Community
             </a>
-            <a
+            <Link
               href="/apk"
               className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white text-xs font-bold py-3 rounded-xl transition-all duration-200 border border-violet-400/30"
             >
               <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Download Official Store APK
-            </a>
+              <span>Download Official Hub APK</span>
+            </Link>
           </div>
         </div>
       </div>
     </>
   );
 }
-

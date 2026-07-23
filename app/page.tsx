@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 async function getGames(): Promise<Game[]> {
   try {
     let page = 1;
-    let games: Game[] = [];
+    const games: Game[] = [];
 
     while (true) {
       const res = await fetch(

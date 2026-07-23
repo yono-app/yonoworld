@@ -26,7 +26,7 @@ export default function DisclaimerPage() {
           {/* Welcome */}
           <Section title="Welcome to All Yono Games Store">
             <p>
-              This extensive disclaimer applies to all users of the All Yono Games Store website and the wide array of applications ("Apps") listed on it. Our platform includes diverse apps such as Poker, Rummy, Ludo, fantasy sports, investment apps, and trading apps. By accessing All Yono Games Store, you acknowledge and agree to the terms outlined in this disclaimer.
+              This extensive disclaimer applies to all users of the All Yono Games Store website and the wide array of applications (&quot;Apps&quot;) listed on it. Our platform includes diverse apps such as Poker, Rummy, Ludo, fantasy sports, investment apps, and trading apps. By accessing All Yono Games Store, you acknowledge and agree to the terms outlined in this disclaimer.
             </p>
           </Section>
 

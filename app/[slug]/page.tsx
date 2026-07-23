@@ -1,9 +1,9 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import AppCard from "../components/AppCard";
 import RelatedAppsSection from "../components/RelatedAppsSection";
 import Link from "next/link";
 import type { Game } from "../types";
@@ -457,7 +457,9 @@ export default async function AppDetailPage({
         )}
 
         {/* Related Apps List */}
-        <RelatedAppsSection games={related} pageSize={5} />
+        <Suspense fallback={null}>
+          <RelatedAppsSection games={related} pageSize={5} />
+        </Suspense>
       </main>
 
       <Footer tags={game.tags} />

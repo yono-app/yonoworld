@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, Suspense } from "react";
 import AppCard from "./AppCard";
 import { Pagination } from "./ui/Pagination";
 import type { Game } from "@/store/slices/gameSlice";
@@ -50,18 +50,20 @@ export default function RelatedAppsSection({
         ))}
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
-        pageSize={pageSize}
-        onPageSizeChange={(newSize) => {
-          setPageSize(newSize);
-          setCurrentPage(1);
-        }}
-        pageSizeOptions={[15, 25, 50]}
-        scrollTargetId="related-apps-section"
-      />
+      <Suspense fallback={null}>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+          pageSize={pageSize}
+          onPageSizeChange={(newSize) => {
+            setPageSize(newSize);
+            setCurrentPage(1);
+          }}
+          pageSizeOptions={[15, 25, 50]}
+          scrollTargetId="related-apps-section"
+        />
+      </Suspense>
     </div>
   );
 }

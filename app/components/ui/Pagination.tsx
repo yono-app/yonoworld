@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, Suspense } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 interface PaginationProps {
@@ -13,7 +13,7 @@ interface PaginationProps {
   pageSizeOptions?: number[];
 }
 
-export function Pagination({
+function PaginationInner({
   currentPage,
   totalPages,
   onPageChange,
@@ -187,3 +187,12 @@ export function Pagination({
     </div>
   );
 }
+
+export function Pagination(props: PaginationProps) {
+  return (
+    <Suspense fallback={null}>
+      <PaginationInner {...props} />
+    </Suspense>
+  );
+}
+

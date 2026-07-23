@@ -29,7 +29,7 @@ export default function OfflinePage() {
 
         {/* Action Buttons */}
         <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
-          <a
+          <Link
             href="/"
             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-black text-xs sm:text-sm rounded-2xl shadow-xl shadow-violet-600/30 active:scale-95 transition-all duration-150 uppercase tracking-widest border border-violet-400/30 cursor-pointer"
           >
@@ -37,7 +37,7 @@ export default function OfflinePage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
             <span>Retry Connection</span>
-          </a>
+          </Link>
 
           <Link
             href="/"

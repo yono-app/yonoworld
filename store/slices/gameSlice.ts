@@ -51,8 +51,9 @@ export const fetchAllGames = createAsyncThunk(
         page++;
       }
       return allGames;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || "Failed to fetch games");
+    } catch (err: unknown) {
+      const errorObj = err as { response?: { data?: { message?: string } } };
+      return rejectWithValue(errorObj.response?.data?.message || "Failed to fetch games");
     }
   }
 );
@@ -63,8 +64,9 @@ export const fetchGameBySlug = createAsyncThunk(
     try {
       const res = await api.get(`/${slug}`);
       return res.data.data as Game;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || "Game not found");
+    } catch (err: unknown) {
+      const errorObj = err as { response?: { data?: { message?: string } } };
+      return rejectWithValue(errorObj.response?.data?.message || "Game not found");
     }
   }
 );
