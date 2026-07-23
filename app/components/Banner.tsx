@@ -50,7 +50,7 @@ export default function Banner() {
                 </div>
 
                 <a
-                  href={`https://${SITE_URL}`}
+                  href={`${SITE_URL}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:text-violet-300 transition-colors duration-150 group"

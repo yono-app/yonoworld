@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { TELEGRAM_URL, SITE_NAME } from "@/config/site";
 
 const topNavLinks = [
@@ -58,117 +58,200 @@ const secondMenuLinks = [
       </svg>
     ),
   },
+
+  {
+    label: "Developer",
+    href: "https://dinestx.com",
+    icon: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    ),
+  },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [spacerHeight, setSpacerHeight] = useState<number>(0);
+  const maxRef = useRef<number>(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    if (containerRef.current) {
+      const updateHeight = () => {
+        if (!containerRef.current) return;
+        const height = containerRef.current.getBoundingClientRect().height;
+        if (height > maxRef.current) {
+          maxRef.current = height;
+          setSpacerHeight(height);
+        }
+      };
+
+      updateHeight();
+
+      const resizeObserver = new ResizeObserver(() => {
+        if (!containerRef.current) return;
+        const height = containerRef.current.getBoundingClientRect().height;
+
+        // If window.scrollY is 0, we can reset maxRef.current to allow shrinking (e.g. from desktop to mobile resize)
+        if (window.scrollY === 0) {
+          maxRef.current = height;
+          setSpacerHeight(height);
+        } else if (height > maxRef.current) {
+          maxRef.current = height;
+          setSpacerHeight(height);
+        }
+      });
+
+      resizeObserver.observe(containerRef.current);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        resizeObserver.disconnect();
+      };
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
-      {/* ── Top Announcement Bar ── */}
-      <div className="bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 text-white text-xs sm:text-sm font-medium py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-2 z-50 relative">
-        <span className="relative flex h-2 w-2 shrink-0">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span className="text-purple-200">🎁 SIGN-UP &amp; CLAIM UP TO ₹1500 REWARDS!</span>
-        <a
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline font-bold text-amber-300 hover:text-amber-200 transition-colors"
-        >
-          Join Telegram
-        </a>
-      </div>
+      {/* ── Fixed Wrapper Container ── */}
+      <div
+        ref={containerRef}
+        className="fixed top-0 left-0 right-0 z-50 flex flex-col pointer-events-auto"
+      >
+        {/* ── Top Announcement Bar ── */}
+        <div className={`bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 text-white text-xs sm:text-sm font-medium text-center flex items-center justify-center gap-2 relative transition-all duration-300 ${scrolled
+          ? "max-h-0 opacity-0 py-0 border-b-0 overflow-hidden"
+          : "max-h-12 opacity-100 py-2 border-b border-white/10"
+          }`}>
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span className="text-purple-200">🎁 SIGN-UP &amp; CLAIM UP TO ₹1500 REWARDS!</span>
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-bold text-amber-300 hover:text-amber-200 transition-colors"
+          >
+            Join Telegram
+          </a>
+        </div>
 
-      {/* ── Main Glass Header ── */}
-      <header className="bg-[#0F101A]/90 backdrop-blur-xl border-b border-white/10 sticky top-0 z-40 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            {/* Logo + Brand Name */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-2xl overflow-hidden ring-2 ring-violet-500/50 group-hover:ring-violet-400 transition-all duration-300 shadow-lg shadow-violet-500/20">
-                <Image
-                  src="/logo.png"
-                  alt="All Yono Games Logo"
-                  fill
-                  className="object-cover"
-                  sizes="44px"
-                />
-              </div>
-              <div className="flex flex-col leading-tight">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-white font-extrabold text-base sm:text-lg tracking-tight group-hover:text-violet-300 transition-colors">
-                    {SITE_NAME}
-                  </span>
-                  <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">
-                    Verified
+        {/* ── Main Glass Header ── */}
+        <header className={`w-full transition-all duration-300 ${scrolled
+          ? "bg-[#0F101A]/95 backdrop-blur-2xl border-b border-violet-500/20 shadow-lg shadow-violet-950/20"
+          : "bg-[#0F101A]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+          }`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "h-14 sm:h-16" : "h-16 sm:h-20"
+              }`}>
+              {/* Logo + Brand Name */}
+              <Link href="/" className="flex items-center gap-3 group">
+                <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-2xl overflow-hidden ring-2 ring-violet-500/50 group-hover:ring-violet-400 transition-all duration-300 shadow-lg shadow-violet-500/20">
+                  <Image
+                    src="/logo.png"
+                    alt="All Yono Games Logo"
+                    fill
+                    className="object-cover"
+                    sizes="44px"
+                  />
+                </div>
+                <div className="flex flex-col leading-tight">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-white font-extrabold text-base sm:text-lg tracking-tight group-hover:text-violet-300 transition-colors">
+                      {SITE_NAME}
+                    </span>
+                    <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">
+                      Verified
+                    </span>
+                  </div>
+                  <span className="text-slate-400 text-[10px] sm:text-xs font-medium">
+                    ⭐ Official Rummy &amp; Slots Directory 2026
                   </span>
                 </div>
-                <span className="text-slate-400 text-[10px] sm:text-xs font-medium">
-                  ⭐ Official Rummy &amp; Slots Directory 2026
-                </span>
-              </div>
-            </Link>
-
-            {/* Desktop Top Links */}
-            <nav className="hidden lg:flex items-center gap-1 bg-white/5 border border-white/10 p-1.5 rounded-2xl backdrop-blur-md">
-              {topNavLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="px-3.5 py-1.5 text-slate-300 hover:text-white font-medium text-xs xl:text-sm rounded-xl hover:bg-violet-600/30 hover:border-violet-500/30 transition-all duration-200 whitespace-nowrap"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* CTA Download APK */}
-            <div className="flex items-center gap-3">
-              <Link
-                href="/apk"
-                className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg shadow-violet-600/25 active:scale-95 transition-all duration-200 border border-violet-400/30 shrink-0"
-              >
-                <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                <span>Download App Hub</span>
               </Link>
 
-              {/* Mobile Hamburger Button */}
-              <button
-                className="lg:hidden text-slate-300 hover:text-white p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition"
-                onClick={() => setMobileOpen(true)}
-                aria-label="Open Menu"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
+              {/* Desktop Top Links */}
+              <nav className="hidden lg:flex items-center gap-1 bg-white/5 border border-white/10 p-1.5 rounded-2xl backdrop-blur-md">
+                {topNavLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-3.5 py-1.5 text-slate-300 hover:text-white font-medium text-xs xl:text-sm rounded-xl hover:bg-violet-600/30 hover:border-violet-500/30 transition-all duration-200 whitespace-nowrap"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
 
-        {/* ── Desktop Secondary Menu Bar ── */}
-        <div className="hidden md:block bg-[#0B0C14]/80 border-t border-white/5 shadow-inner">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center gap-2 py-2">
-              {secondMenuLinks.map((link) => (
+              {/* CTA Download APK */}
+              <div className="flex items-center gap-3">
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className="flex items-center gap-2 px-4 py-1.5 text-slate-400 hover:text-violet-300 font-semibold text-xs rounded-xl hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+                  href="/apk"
+                  className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg shadow-violet-600/25 active:scale-95 transition-all duration-200 border border-violet-400/30 shrink-0"
                 >
-                  <span className="text-violet-400">{link.icon}</span>
-                  {link.label}
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  <span>Download App Hub</span>
                 </Link>
-              ))}
+
+                {/* Mobile Hamburger Button */}
+                <button
+                  className="lg:hidden text-slate-300 hover:text-white p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition"
+                  onClick={() => setMobileOpen(true)}
+                  aria-label="Open Menu"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+
+          {/* ── Desktop Secondary Menu Bar ── */}
+          <div className="hidden md:block bg-[#0B0C14]/80 border-t border-white/5 shadow-inner">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-center gap-2 py-2">
+                {secondMenuLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="flex items-center gap-2 px-4 py-1.5 text-slate-400 hover:text-violet-300 font-semibold text-xs rounded-xl hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+                  >
+                    <span className="text-violet-400">{link.icon}</span>
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      {/* Spacer to prevent layout overlap */}
+      <div
+        className="h-[100px] md:h-[140px] lg:h-[157px] shrink-0 pointer-events-none"
+        style={spacerHeight ? { height: `${spacerHeight}px` } : undefined}
+      />
 
       {/* ── Mobile Drawer Overlay ── */}
       <div className="lg:hidden">
@@ -176,7 +259,7 @@ export default function Navbar() {
         <div
           aria-hidden="true"
           onClick={() => setMobileOpen(false)}
-          className="fixed inset-0 bg-black/80 backdrop-blur-md z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] transition-opacity duration-300"
           style={{ opacity: mobileOpen ? 1 : 0, pointerEvents: mobileOpen ? "auto" : "none" }}
         />
 
@@ -185,7 +268,7 @@ export default function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation Menu"
-          className="fixed top-0 right-0 h-full w-80 bg-[#0F101A] border-l border-white/10 z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out"
+          className="fixed top-0 right-0 h-full w-80 bg-[#0F101A] border-l border-white/10 z-[70] shadow-2xl flex flex-col transition-transform duration-300 ease-in-out"
           style={{ transform: mobileOpen ? "translateX(0)" : "translateX(100%)" }}
         >
           {/* Drawer Header */}

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Game } from "../types";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Gift, GiftCard02FreeIcons, Wallet02FreeIcons } from "@hugeicons/core-free-icons";
 
 interface AppCardProps {
   game: Game;
@@ -17,7 +19,7 @@ export default function AppCard({ game, index }: AppCardProps) {
         <div className="absolute -top-2 -left-2 bg-gradient-to-br from-violet-600 to-indigo-700 text-white font-black text-[9px] sm:text-[10px] w-5.5 h-5.5 rounded-lg flex justify-center items-center shadow-md z-10 border border-violet-400/30">
           {index < 10 ? `0${index}` : index}
         </div>
-        
+
         {/* App Logo */}
         <div className="w-full h-full rounded-2xl overflow-hidden shadow-md border border-white/10 group-hover:scale-105 group-hover:border-violet-500/40 transition-all duration-300 bg-gradient-to-br from-violet-900 to-indigo-950 flex items-center justify-center">
           {game.logoUrl ? (
@@ -46,7 +48,7 @@ export default function AppCard({ game, index }: AppCardProps) {
             ✓ Safe
           </span>
         </div>
-        
+
         {/* Rating and Size Details row */}
         <div className="flex items-center gap-2 mt-1 text-[11px] font-bold text-slate-400">
           <span className="flex items-center gap-1 text-amber-400">
@@ -65,17 +67,20 @@ export default function AppCard({ game, index }: AppCardProps) {
         </div>
 
         {/* Bonus & Withdrawal Tags */}
-        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-2">
+        <div className="flex flex-col gap-1.5 sm:gap-2 mt-2">
           {game.signupBonus != null && (
             <div className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] text-rose-300 font-bold bg-rose-500/15 border border-rose-500/30 px-2 py-0.5 rounded-full">
-              <span className="text-xs">🎁</span>
-              <span>Bonus ₹{game.signupBonus}</span>
+              <span className="text-xs">
+                <HugeiconsIcon size={18} icon={Gift} />
+              </span>
+              <span>Signup Bonus ₹{game.signupBonus}</span>
             </div>
           )}
           {game.minWithdraw != null && (
             <div className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] text-emerald-300 font-bold bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-              <span className="text-xs">⚡</span>
-              <span>Min ₹{game.minWithdraw}</span>
+
+              <HugeiconsIcon size={18} icon={Wallet02FreeIcons} />
+              <span>Min Withdrawal ₹{game.minWithdraw}</span>
             </div>
           )}
         </div>
@@ -84,12 +89,12 @@ export default function AppCard({ game, index }: AppCardProps) {
       {/* Download Action Button */}
       <Link
         href={`/${game.slug}`}
-        className="shrink-0 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-extrabold px-3.5 sm:px-4 py-2.5 rounded-xl border border-violet-400/30 shadow-lg shadow-violet-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
+        className="shrink-0 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-extrabold px-3 sm:px-4 py-2.5 rounded-xl border border-violet-400/30 shadow-lg shadow-violet-600/20 active:scale-95 transition-all duration-200 cursor-pointer"
       >
         <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
-        <span className="hidden sm:inline">Download</span>
+        <span className="sm:inline">Download</span>
       </Link>
     </div>
   );

@@ -22,6 +22,8 @@ import { SpotlightCardSkeleton } from "./components/ui/skeleton/SpotlightCardSke
 import { EmptyState } from "./components/ui/EmptyState";
 import { ErrorState } from "./components/ui/ErrorState";
 import { Pagination } from "./components/ui/Pagination";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Search01FreeIcons } from "@hugeicons/core-free-icons";
 
 const CATEGORIES = ["All Apps", "New Apps"];
 
@@ -111,16 +113,8 @@ export default function HomeClient({
       <main id="game-list-section" className="flex-1 w-full max-w-[680px] mx-auto px-4 sm:px-6 py-10 relative z-10">
         {/* Modern Search Bar Container */}
         <div className="relative mb-6 group">
-          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <svg
-              className="w-5 h-5 text-slate-400 group-focus-within:text-violet-400 transition-colors duration-200"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none z-10 text-slate-400 group-focus-within:text-violet-400 transition-colors duration-200">
+            <HugeiconsIcon icon={Search01FreeIcons} size={20} />
           </div>
           <input
             type="text"
