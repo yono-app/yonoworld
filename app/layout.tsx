@@ -5,6 +5,8 @@ import Script from "next/script";
 import { Providers } from "./providers";
 import { TELEGRAM_URL, SITE_NAME, SITE_URL, SITE_DESCRIPTION, SUPPORT_EMAIL } from "@/config/site";
 import { PwaRegister } from "./components/PwaRegister";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -273,6 +275,7 @@ export default function RootLayout({
       </head>
 
       <body className="min-h-screen flex flex-col bg-[#0B0B0F] text-slate-100 selection:bg-purple-600 selection:text-white" suppressHydrationWarning>
+        <GoogleAnalytics gaId="G-6JDN21RQ9Q" />
         <Providers>
           {children}
           <PwaRegister />
